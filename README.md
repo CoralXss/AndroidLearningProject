@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 -----为整个Project配置同意的sdk版本-----
 1. 在根目录下创建 config.gradle如下：
 // Gradle统一依赖管理
@@ -32,5 +33,4 @@ android {
 dependencies {
     compile "com.android.support:recyclerview-v7:${APPCOMPAT_VERSION}"
 }
-
 
