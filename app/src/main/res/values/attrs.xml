@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+   <declare-styleable name="CustomLayoutParams">
+       <attr name="android:layout_gravity"></attr>
+       <attr name="layout_position">
+           <enum name="middle" value="0" />
+           <enum name="left" value="1" />
+           <enum name="right" value="2" />
+       </attr>
+   </declare-styleable>
+
+    <declare-styleable name="composeLabelEditViewStyle">
+        <attr name="labelTextColor" format="color"></attr>
+        <attr name="labelTextSize" format="dimension"></attr>
+        <attr name="labelText" format="string"></attr>
+        <attr name="labelTextStyle">
+            <enum name="normal" value="0" />
+            <enum name="italic" value="1" />
+            <enum name="bold" value="2" />
+        </attr>
+        <attr name="ellipsize">
+            <enum name="end" value="0" />
+            <enum name="middle" value="1" />
+            <enum name="start" value="2" />
+        </attr>
+        <attr name="singleLine" format="boolean"></attr>
+        <attr name="maxLength" format="integer"></attr>
+        <attr name="drawableLeft" format="reference"></attr>
+        <attr name="drawableTop" format="reference"></attr>
+        <attr name="drawableRight" format="reference"></attr>
+        <attr name="drawableBottom" format="reference"></attr>
+        <attr name="drawablePadding" format="dimension"></attr>
+        <attr name="labelHeight" format="dimension"></attr>
+        <attr name="labelWidth" format="dimension"></attr>
+        <attr name="labelBackgroundResource" format="reference" ></attr>
+
+        <attr name="myEditTextColor" format="color"></attr>
+        <attr name="myEditTextSize" format="dimension"></attr>
+        <attr name="myEditText" format="string"></attr>
+        <attr name="myEditTextHint" format="string"></attr>
+        <attr name="myEditTextHintColor" format="color"></attr>
+        <attr name="myEditInputType">
+            <enum name="text" value="0" />
+            <enum name="phone" value="1" />
+            <enum name="password" value="2" />
+            <enum name="number" value="3" />
+        </attr>
+        <attr name="myEditTextBackgroundResource" format="reference" ></attr>
+
+        <attr name="labelMarginRight" format="dimension" />
+        <attr name="edtPaddingLeft" format="dimension" />
+        <attr name="edtPaddingTop" format="dimension" />
+        <attr name="edtPaddingRight" format="dimension" />
+        <attr name="edtPaddingBottom" format="dimension" />
+    </declare-styleable>
+
+
+</resources>

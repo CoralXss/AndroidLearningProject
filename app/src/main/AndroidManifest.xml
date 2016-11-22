@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.xss.mobile">
+
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+
+    <!-- 声明使用OpenGL ES 20 -->
+    <uses-feature
+        android:glEsVersion="0x00020000"
+        android:required="true" />
+
+    <supports-gl-texture android:name="GL_OES_compressed_ETC1_RGB8_texture" />
+    <supports-gl-texture android:name="GL_OES_compressed_paletted_texture" />
+
+    <application
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme">
+        <activity android:name=".MainActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+        <service android:name=".service.HelloService" />
+        <service android:name=".service.HelloIntentService" />
+
+        <activity android:name=".activity.BindingActivity" />
+
+        <service android:name=".service.LocalBindService" />
+        <service android:name=".service.LocalStartService" />
+        <service
+            android:name=".service.RemoteService"
+            android:exported="true"
+            android:process=":remote" />
+
+        <activity android:name=".activity.XmlParserActivity" />
+        <activity android:name=".activity.RxJavaTestActivity" />
+        <activity android:name=".activity.WebViewActivity" />
+        <activity android:name=".activity.GetPictureActivity" />
+        <activity android:name=".activity.BitmapTestActivity" />
+        <activity android:name=".activity.BookListActivity" />
+        <activity android:name=".activity.ComposeViewTestActivity" />
+        <activity android:name=".activity.bitmap.ViewPagerBitmapTestActivity" />
+        <activity android:name=".activity.bitmap.GridViewBitmapTestActivity" />
+        <activity android:name=".activity.opengl.OpenGLES20Activity" />
+        <activity android:name=".activity.animation.ViewAnimationActivity" />
+        <activity android:name=".activity.network.NetWorkTestActivity" />
+        <activity android:name=".activity.network.SettingsActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MANAGE_NETWORK_USAGE" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".activity.volley.VolleyTestActivity" />
+        <activity android:name=".activity.IntentServiceTestActivity" />
+
+        <service
+            android:name=".service.RSSPullIntentService"
+            android:exported="false" />
+
+        <activity android:name=".activity.ViewStubTestActivity" />
+        <activity android:name=".activity.volley.VolleyPackagingActivity" />
+        <activity android:name=".activity.okhttp.OkHttpTestActivity" />
+        <activity android:name=".activity.LooperTestActivity" />
+        <activity android:name=".activity.jnitest.JniTestActivity"></activity>
+    </application>
+
+</manifest>

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/ll_parent">
+
+
+    <com.xss.mobile.widget.ComposeLabelEditView
+        android:id="@+id/composeLabelEditView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:labelTextColor="@color/color_red"
+        app:labelText="姓名"
+        app:drawableLeft="@drawable/add"
+        app:drawablePadding="8dp"
+        app:myEditTextHint="请输入姓名"
+        app:myEditInputType="phone"
+        app:edtPaddingLeft="15dp"
+        app:myEditTextBackgroundResource="@drawable/ageent_bg_ll_match_orange"/>
+</LinearLayout>

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<persons>
+    <person id="1">
+        <name>Jane</name>
+        <age>21</age>
+        <grade>70.5</grade>
+        <isGirl>true</isGirl>
+    </person>
+    <person id="2">
+        <name>David</name>
+        <age>18</age>
+        <grade>97.5</grade>
+        <isGirl>false</isGirl>
+    </person>
+    <person id="3">
+        <name>Coralline</name>
+        <age>22</age>
+        <grade>80.5</grade>
+        <isGirl>true</isGirl>
+    </person>
+</persons>
