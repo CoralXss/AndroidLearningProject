@@ -23,6 +23,7 @@ import com.xss.mobile.activity.IntentServiceTestActivity;
 import com.xss.mobile.activity.LooperTestActivity;
 import com.xss.mobile.activity.ViewStubTestActivity;
 import com.xss.mobile.activity.jnitest.JniTestActivity;
+import com.xss.mobile.activity.launchmode.FirstActivity;
 import com.xss.mobile.activity.network.NetWorkTestActivity;
 import com.xss.mobile.activity.animation.ViewAnimationActivity;
 import com.xss.mobile.activity.bitmap.GridViewBitmapTestActivity;
@@ -184,6 +185,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         intent = new Intent(MainActivity.this, JniTestActivity.class);
                         startActivity(intent);
                         break;
+                    case 9:
+                        intent = new Intent(MainActivity.this, FirstActivity.class);
+                        Log.d(TAG, "0-1 hash = " + intent.hashCode());
+                        startActivity(intent);
+                        break;
+                    case 10:
+                        intent = new Intent(MainActivity.this, WebViewActivity.class);
+                        startActivity(intent);
+                        break;
                 }
             }
         });
@@ -200,6 +210,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         list.add(6, "To OkHttp3 Test");
         list.add(7, "To Lopper Test");
         list.add(8, "To Jni Test");
+        list.add(9, "To First Activity");
+        list.add(10, "To WebView Activity");
 
         return list;
     }

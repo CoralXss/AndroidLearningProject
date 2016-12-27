@@ -2,11 +2,11 @@ package com.xss.mobile.activity.okhttp;
 
 import android.app.Activity;
 import android.os.Bundle;
-import android.os.Handler;
 import android.util.Log;
 import android.view.View;
 
 import com.xss.mobile.R;
+import com.xss.mobile.network.okhttp.OkHttpManager;
 
 import java.io.IOException;
 
@@ -37,27 +37,8 @@ public class OkHttpTestActivity extends Activity {
     }
 
     private void testGet() {
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                // 1、获取封装好的OkHttp客户端-OkHttpClient
-                OkHttpClient client = new OkHttpClient();
-                try {
-                    // 2、http请求体-Request
-                    Request request = new Request.Builder().url("http://www.baidu.com").build();
-                    // 没有添加 Callback，同步请求，在主线程中做耗时操作：NetworkOnMainThreadException
-                    // 3、http响应体-Response
-                    Response response = client.newCall(request).execute();
-
-                    if (response.isSuccessful()) {
-                        String content = response.body().string();
-                        Log.d(TAG, content);
-                    }
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            }
-        }).start();
+        Log.d(TAG, "click");
+        OkHttpManager.getInstance().testGet();
 
     }
 

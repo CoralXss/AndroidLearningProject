@@ -8,6 +8,7 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.view.ViewTreeObserver;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -45,6 +46,13 @@ public class NetWorkTestActivity  extends Activity {
                 if (checkNetworkState()) {
                     download();
                 }
+            }
+        });
+
+        btn_download.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+            @Override
+            public void onGlobalLayout() {
+
             }
         });
     }
@@ -93,7 +101,6 @@ public class NetWorkTestActivity  extends Activity {
 
         try {
             URL url = new URL(myUrl);
-
             HttpURLConnection conn = (HttpURLConnection) url.openConnection();
             conn.setReadTimeout(1000);
             conn.setConnectTimeout(15000);

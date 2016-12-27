@@ -53,9 +53,9 @@ public class VolleyTestActivity extends Activity {
         findViewById(R.id.btn_click).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-//                testStringRequest();
-
-                testJsonRequest();
+                testStringRequest();
+//
+//                testJsonRequest();
             }
         });
     }
@@ -64,6 +64,7 @@ public class VolleyTestActivity extends Activity {
         String url = "http://www.baidu.com";
         // 默认get请求
         StringRequest request = getRequest(url, Request.Method.GET);
+        request.setShouldCache(true);
         requestQueue.add(request);
     }
 

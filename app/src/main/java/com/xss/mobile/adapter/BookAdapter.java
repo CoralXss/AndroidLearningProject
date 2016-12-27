@@ -33,4 +33,14 @@ public class BookAdapter extends BaseRecyclerAdapter<BookEntity> {
         BookEntity entity = itemList.get(i);
         holder.tv_book_name.setText(entity.name);
     }
+
+    @Override
+    public int getItemViewType(int position) {
+        return super.getItemViewType(position);
+    }
+
+    @Override
+    public int getItemCount() {
+        return super.getItemCount();
+    }
 }
