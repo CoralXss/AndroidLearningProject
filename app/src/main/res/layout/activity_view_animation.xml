@@ -9,52 +9,98 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <RelativeLayout
-            android:gravity="center"
+        <LinearLayout
+            android:id="@+id/ll_messages"
             android:layout_width="match_parent"
-            android:layout_height="200dp"
-            android:background="#fff">
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <FrameLayout
+                android:id="@+id/ll_search"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:orientation="horizontal"
+                android:gravity="center"
+                android:layout_marginTop="20dp">
+
+                <View
+                    android:id="@+id/view_bg"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/ageent_bg_ll_match_orange"/>
+
+                <ImageView
+                    android:layout_width="12dp"
+                    android:layout_height="12dp"
+                    android:minWidth="12dp"
+                    android:minHeight="12dp"
+                    android:adjustViewBounds="true"
+                    android:layout_gravity="center"
+                    android:src="@drawable/re_icon_search"
+                    android:scaleType="fitXY"
+                    android:layout_marginRight="100dp" />
+
+                <TextView
+                    android:id="@+id/search"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:gravity="center_vertical"
+                    android:paddingLeft="10dp"
+                    android:textColor="#666666"
+                    android:textSize="13sp"
+                    android:text="搜索店内商品，共有256件好物"
+                    android:layout_gravity="center"/>
+
+            </FrameLayout>
+
+            <LinearLayout
+                android:id="@+id/ll_translate"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_marginTop="20dp"
+                android:background="#f25824">
+
+                <TextView
+                    android:id="@+id/tv_content_0"
+                    android:layout_width="match_parent"
+                    android:layout_height="38dp"
+                    android:background="@drawable/ageent_bg_ll_match_orange"
+                    android:text="Nice to meet you !"
+                    android:gravity="center"
+                    android:layout_marginBottom="10dp"/>
+
+                <TextView
+                    android:id="@+id/tv_content"
+                    android:layout_width="match_parent"
+                    android:layout_height="38dp"
+                    android:background="@drawable/ageent_bg_ll_match_orange"
+                    android:text="Hello World !"
+                    android:gravity="center"/>
+
+            </LinearLayout>
+
 
             <TextView
-                android:id="@+id/tv_record"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@drawable/tv_circle_bg1"
-                android:gravity="center"
-                android:text="报备\n客户"
-                android:layout_centerInParent="true"
-                android:textColor="#f25824"
-                android:textSize="20sp" />
+                android:id="@+id/tv_click_to_translate"
+                android:layout_width="match_parent"
+                android:layout_height="38dp"
+                android:background="@drawable/ageent_bg_ll_match_orange"
+                android:layout_marginTop="100dp"
+                android:text="Click to translate !"
+                android:gravity="center"/>
 
-            <View
-                android:id="@+id/v_ring"
-                android:layout_width="116dp"
-                android:layout_height="116dp"
-                android:layout_centerInParent="true"
-                android:background="@drawable/tv_circle_ring_bg1_1" />
+            <TextView
+                android:id="@+id/tv_click_to_scale"
+                android:layout_width="match_parent"
+                android:layout_height="38dp"
+                android:background="@drawable/ageent_bg_ll_match_orange"
+                android:layout_marginTop="10dp"
+                android:text="Click to scale !"
+                android:gravity="center"/>
 
-            <View
-                android:id="@+id/v_ring_1"
-                android:layout_width="116dp"
-                android:layout_height="116dp"
-                android:layout_centerInParent="true"
-                android:background="@drawable/tv_circle_ring_bg1" />
+        </LinearLayout>
 
-            <View
-                android:id="@+id/v_ring_2"
-                android:layout_width="116dp"
-                android:layout_height="116dp"
-                android:layout_centerInParent="true"
-                android:background="@drawable/tv_circle_ring_bg1" />
-
-            <View
-                android:id="@+id/v_ring_3"
-                android:layout_width="116dp"
-                android:layout_height="116dp"
-                android:layout_centerInParent="true"
-                android:background="@drawable/tv_circle_ring_bg1" />
-
-        </RelativeLayout>
 
     </ScrollView>
 
@@ -63,5 +109,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         style="?android:progressBarStyleLarge"
-        android:layout_gravity="center"/>
+        android:layout_gravity="center"
+        android:visibility="gone"/>
 </FrameLayout>

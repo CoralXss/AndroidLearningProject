@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data class="com.xss.mobile.custom.CustomBinding">  <!--  class="com.xss.mobile.custom.CustomBinding" -->
+        <variable
+            name="user"
+            type="com.xss.mobile.activity.databinding.UserObservableEntity" />
+
+        <variable
+            name="userBind"
+            type="com.xss.mobile.activity.databinding.UserBindEntity" />
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text='@{"可变姓名: " + user.username}'/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text='@{"固定年龄: " + user.userAge}'/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text='@{"可变分数: " + user.grade}'/>
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="点击更新UserObservableEntity"
+            android:onClick="@{user::changeData}"/>
+
+        <View android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#eee"
+            android:layout_margin="10dp"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text='@{"姓名: " + userBind.username + ", 年龄" + userBind.userAge + ", 分数" + userBind.grade}'/>
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="点击更新UserBindEntity"
+            android:onClick="@{userBind::changeData}"/>
+
+        <!--<merge>-->
+
+            <include layout="@layout/layout_databing_include"
+                app:user="@{user}"/>
+        <!--</merge>-->
+
+
+    </LinearLayout>
+</layout>
+

@@ -7,12 +7,14 @@ import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.PopupWindow;
 import android.widget.ScrollView;
 
 import com.xss.mobile.R;
 import com.xss.mobile.adapter.BookAdapter;
 import com.xss.mobile.entity.BookEntity;
+import com.xss.mobile.widget.GridRecyclerDecoration;
 import com.xss.mobile.widget.MyRecyclerView;
 
 import java.util.ArrayList;
@@ -28,6 +30,9 @@ public class BookListActivity extends Activity {
     private MyRecyclerView rv_vertical_list;
     private BookAdapter bookHorizontalAdapter, bookVerticalAdapter;
 
+
+    private ImageView iv_left, iv_right;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -38,6 +43,9 @@ public class BookListActivity extends Activity {
 
     private void initView() {
         scrollView = (ScrollView) findViewById(R.id.scrollView);
+
+        iv_left = (ImageView) findViewById(R.id.iv_left);
+        iv_right = (ImageView) findViewById(R.id.iv_right);
 
         rv_horizontal_list = (RecyclerView) findViewById(R.id.rv_horizontal_list);
         rv_vertical_list = (MyRecyclerView) findViewById(R.id.rv_vertical_list);
@@ -52,23 +60,60 @@ public class BookListActivity extends Activity {
         horizontalManager.setOrientation(LinearLayoutManager.HORIZONTAL);
         rv_horizontal_list.setLayoutManager(horizontalManager);
         rv_horizontal_list.setAdapter(bookHorizontalAdapter);
+        rv_horizontal_list.setVisibility(View.GONE);
 
         LinearLayoutManager verticalManager = new LinearLayoutManager(this);
         verticalManager.setOrientation(LinearLayoutManager.VERTICAL);
         rv_vertical_list.setLayoutManager(verticalManager);
         rv_vertical_list.setAdapter(bookVerticalAdapter);
 
-        scrollView.setOnScrollChangeListener(new View.OnScrollChangeListener() {
-            @Override
-            public void onScrollChange(View view, int i, int i1, int i2, int i3) {
-                Log.e(TAG, "scrollView onScroll");
-            }
-        });
+//        scrollView.setOnScrollChangeListener(new View.OnScrollChangeListener() {
+//            @Override
+//            public void onScrollChange(View view, int i, int i1, int i2, int i3) {
+//                Log.e(TAG, "scrollView onScroll");
+//            }
+//        });
+//
+//        rv_vertical_list.setOnScrollChangeListener(new View.OnScrollChangeListener() {
+//            @Override
+//            public void onScrollChange(View view, int i, int i1, int i2, int i3) {
+//                Log.e(TAG, "rv_vertical_list onScroll");
+//            }
+//        });
 
-        rv_vertical_list.setOnScrollChangeListener(new View.OnScrollChangeListener() {
+        rv_horizontal_list.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
-            public void onScrollChange(View view, int i, int i1, int i2, int i3) {
-                Log.e(TAG, "rv_vertical_list onScroll");
+            public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
+                super.onScrollStateChanged(recyclerView, newState);
+                Log.e("scrolState", newState + "");
+            }
+
+            @Override
+            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+                super.onScrolled(recyclerView, dx, dy);
+                Log.e("scrol", dx + "");
+
+                if (dx > 0) { // 向右滑
+
+                }
+
+//                if (recyclerView.getLayoutManager() instanceof LinearLayoutManager) {
+//                    LinearLayoutManager layoutManager = (LinearLayoutManager) recyclerView.getLayoutManager();
+//                    int itemCount = layoutManager.getItemCount();
+//                    int lastPos = layoutManager.findLastCompletelyVisibleItemPosition();
+//                    Log.e("scroll", lastPos + "");
+//                    if (lastPos == itemCount - 1) {
+//                        // 找到了最后一个
+//                        iv_left.setVisibility(View.GONE);
+//                        iv_right.setVisibility(View.VISIBLE);
+//                    } else if (lastPos == 1) {
+//                        iv_left.setVisibility(View.VISIBLE);
+//                        iv_right.setVisibility(View.GONE);
+//                    } else {
+//                        iv_left.setVisibility(View.GONE);
+//                        iv_right.setVisibility(View.GONE);
+//                    }
+//                }
             }
         });
     }
@@ -77,19 +122,19 @@ public class BookListActivity extends Activity {
     private ArrayList<BookEntity> getHorizontalData() {
         ArrayList<BookEntity> list = new ArrayList<>();
         BookEntity entity = new BookEntity();
-        entity.name = "C++程序设计";
+        entity.name = "C++";  // 程序设计
         list.add(entity);
         entity = new BookEntity();
-        entity.name = "Thinking in Java";
+        entity.name = "Java";  // Thinking in
         list.add(entity);
         entity = new BookEntity();
-        entity.name = "Android程序设计";
+        entity.name = "Android";  // 程序设计
         list.add(entity);
         entity = new BookEntity();
-        entity.name = "Phony程序设计";
+        entity.name = "Phony";  // 程序设计
         list.add(entity);
         entity = new BookEntity();
-        entity.name = "C#程序设计";
+        entity.name = "C#";   // 程序设计
         list.add(entity);
 
         return list;

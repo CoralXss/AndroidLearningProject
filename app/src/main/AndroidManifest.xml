@@ -39,6 +39,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".md.MdMainActivity" />
 
         <service android:name=".service.HelloService" />
         <service android:name=".service.HelloIntentService" />
@@ -83,7 +84,7 @@
         <activity android:name=".activity.volley.VolleyPackagingActivity" />
         <activity android:name=".activity.okhttp.OkHttpTestActivity" />
         <activity android:name=".activity.LooperTestActivity" />
-        <activity android:name=".activity.jnitest.JniTestActivity" />
+        <!--<activity android:name=".activity.jnitest.JniTestActivity" />-->
         <activity
             android:name=".activity.launchmode.FirstActivity"
             android:launchMode="singleTop" />
@@ -161,7 +162,17 @@
         <activity android:name=".activity.rxjava.RxJavaTestActivity" />
         <activity android:name=".activity.scrollconflict.ViewPagerConflictActivity" />
         <activity android:name=".activity.dagger.DaggerTestActivity" />
-        <activity android:name=".activity.databinding.DataBindingTestActivity"></activity>
+        <activity android:name=".activity.dagger2.DaggerTestActivity" />
+        <activity android:name=".activity.mvp.CommonFragmentActivity" />
+        <!-- <activity android:name=".md.MdMainActivity"></activity> -->
+        <activity android:name=".md.CoordinatorTestActivity" />
+        <activity android:name=".activity.dagger2.DaggerTestScopeActivity" />
+        <activity android:name=".activity.databinding.DatabindingTestActivity" />
+        <activity
+            android:name=".activity.databinding.dbinding.CustomBindingActivity"
+            android:label="@string/title_activity_custom_binding"
+            android:theme="@style/AppTheme" />
+        <activity android:name=".activity.annotation.IntDefTestActivity"></activity>
     </application>
 
 </manifest>

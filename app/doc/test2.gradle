@@ -1,0 +1,19 @@
+task uploadpython(type: Exec) {
+//    print("Hello")
+}
+
+afterEvaluate {
+    tasks.withType(Task).each { task ->
+        task.doLast {
+            if (task.name.equals("resouceProguardTask")) {
+                uploadpython('')
+            }
+        }
+    }
+}
+
+//def docDir = "${project.projectDir}/doc"
+//
+//task buildPy << {
+//    print(docDir)
+//}

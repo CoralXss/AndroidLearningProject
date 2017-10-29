@@ -22,7 +22,6 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
-import com.example.core.activity.FileLoadActivity;
 import com.google.gson.Gson;
 import com.xss.mobile.activity.BitmapTestActivity;
 import com.xss.mobile.activity.BookListActivity;
@@ -35,6 +34,7 @@ import com.xss.mobile.activity.WebViewActivity;
 import com.xss.mobile.activity.XmlParserActivity;
 import com.xss.mobile.activity.ZxingCodeActivity;
 import com.xss.mobile.activity.annotation.AnnotationTestActivity;
+import com.xss.mobile.activity.annotation.IntDefTestActivity;
 import com.xss.mobile.activity.bitmap.GridViewBitmapTestActivity;
 import com.xss.mobile.activity.bitmap.ViewPagerBitmapTestActivity;
 import com.xss.mobile.activity.broadcast.BroadcastTestActivity;
@@ -43,19 +43,20 @@ import com.xss.mobile.activity.customview.ConstraintLayoutLearnActivity;
 import com.xss.mobile.activity.customview.FrameLayoutTestActivity;
 import com.xss.mobile.activity.customview.LeanTextViewActivity;
 import com.xss.mobile.activity.customview.MultiLabelActivity;
-import com.xss.mobile.activity.dagger.DaggerTestActivity;
-import com.xss.mobile.activity.databinding.DataBindingTestActivity;
+import com.xss.mobile.activity.dagger2.DaggerTestScopeActivity;
+import com.xss.mobile.activity.databinding.DatabindingTestActivity;
+import com.xss.mobile.activity.databinding.dbinding.CustomBindingActivity;
 import com.xss.mobile.activity.eventbus.EventbusTestActivity;
-import com.xss.mobile.activity.jnitest.JniTestActivity;
 import com.xss.mobile.activity.launchmode.FirstActivity;
 import com.xss.mobile.activity.memorytest.ListViewTestActivity;
+import com.xss.mobile.activity.memorytest.MemoryTabTestActivity;
 import com.xss.mobile.activity.network.AutoResumeDownloadActivity;
 import com.xss.mobile.activity.network.NetWorkTestActivity;
 import com.xss.mobile.activity.okhttp.InterceptorTestActivity;
 import com.xss.mobile.activity.okhttp.OkHttpTestActivity;
 import com.xss.mobile.activity.opengl.OpenGLES20Activity;
-import com.xss.mobile.activity.memorytest.MemoryTabTestActivity;
 import com.xss.mobile.activity.photo.GetPictureActivity;
+import com.xss.mobile.activity.retrofit.RetrofitTestActivity;
 import com.xss.mobile.activity.rxjava.RxJavaTestActivity;
 import com.xss.mobile.activity.scrollconflict.ScrollViewAndRecyclerViewActivity;
 import com.xss.mobile.activity.view.ViewEventDispatchActivity;
@@ -64,7 +65,6 @@ import com.xss.mobile.activity.volley.VolleyTestActivity;
 import com.xss.mobile.adapter.BaseRecyclerAdapter;
 import com.xss.mobile.adapter.BaseViewHolder;
 import com.xss.mobile.handler.CrashHandler;
-import com.xss.mobile.activity.retrofit.RetrofitTestActivity;
 import com.xss.mobile.utils.DensityUtil;
 import com.xss.mobile.utils.ViewUtil;
 
@@ -77,6 +77,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import dalvik.system.DexClassLoader;
+
+//import com.xss.mobile.activity.jnitest.JniTestActivity;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener{
     private static final String TAG = MainActivity.class.getSimpleName();
@@ -318,7 +320,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         list.add(new ViewModel("To Volley Packaging Test", VolleyPackagingActivity.class));
         list.add(new ViewModel("To OkHttp3 Test", OkHttpTestActivity.class));
         list.add(new ViewModel("To Lopper Test", LooperTestActivity.class));
-        list.add(new ViewModel("To Jni Test", JniTestActivity.class));
+//        list.add(new ViewModel("To Jni Test", JniTestActivity.class));
         list.add(new ViewModel("To First Activity", FirstActivity.class));
         list.add(new ViewModel("To WebView Activity", WebViewActivity.class));
         list.add(new ViewModel("To LeanTextView Activity", LeanTextViewActivity.class));
@@ -328,7 +330,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         list.add(new ViewModel("To Test FrameLayout Activity", FrameLayoutTestActivity.class));
         list.add(new ViewModel("To Test EventBus Activity", EventbusTestActivity.class));
         list.add(new ViewModel("To Test AutoResumeDownloadActivity", AutoResumeDownloadActivity.class));
-        list.add(new ViewModel("To Test FileLoadActivity", FileLoadActivity.class));
+//        list.add(new ViewModel("To Test FileLoadActivity", FileLoadActivity.class));
         list.add(new ViewModel("To Test ViewEventDispatchActivity", ViewEventDispatchActivity.class));
         list.add(new ViewModel("To Test BroadcastTestActivity", BroadcastTestActivity.class));
         list.add(new ViewModel("To Test MultiLabelActivity", MultiLabelActivity.class));
@@ -340,8 +342,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         list.add(new ViewModel("To Test RetrofitTestActivity", RetrofitTestActivity.class));
         list.add(new ViewModel("To Test InterceptorTestActivity", InterceptorTestActivity.class));
         list.add(new ViewModel("To Test RxJavaTestActivity", RxJavaTestActivity.class));
-        list.add(new ViewModel("To Test DaggerTestActivity", DaggerTestActivity.class));
-        list.add(new ViewModel("To Test DataBindingTestActivity", DataBindingTestActivity.class));
+        list.add(new ViewModel("To Test DaggerTestActivity", com.xss.mobile.activity.dagger2.DaggerTestActivity.class));
+        list.add(new ViewModel("TO DaggerTestScopeActivity", DaggerTestScopeActivity.class));
+        list.add(new ViewModel("To Test DataBindingTestActivity", DatabindingTestActivity.class));
+        list.add(new ViewModel("To Test CustomBindingActivity", CustomBindingActivity.class));
+        list.add(new ViewModel("To Test DataBindingTestActivity", IntDefTestActivity.class));
 
         return list;
     }

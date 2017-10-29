@@ -1,0 +1,40 @@
+//def resouceProguardTask = {
+//    def variantName ->
+//        print("variantName = " + variantName)
+//}
+
+//println project.name
+
+task resouceProguardTask {
+    doLast {
+        println 'compiling source'
+    }
+}
+
+// 执行 gradle compileTest，先 resouceProguardTask 再 compileTest
+task compileTest(dependsOn: resouceProguardTask) {
+    doLast {
+        println 'compiling unit tests'
+    }
+}
+
+task printProps {
+    doLast {
+        println commandLineProjectProp
+        println gradlePropertiesProp
+        println systemProjectProp
+        println envProjectProp
+        println System.properties['system']
+    }
+}
+
+//
+//afterEvaluate {
+//    tasks.withType(Task).each { task ->
+//        task.doLast {
+//            if (task.name.equals("assembleRelease")) {
+//                resouceProguardTask("release")
+//            }
+//        }
+//    }
+//}

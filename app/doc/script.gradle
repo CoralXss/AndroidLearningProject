@@ -1,0 +1,100 @@
+// style 1：defining tasks
+
+task(hello) {
+    doLast {
+        println "hello"
+    }
+}
+
+// 2
+task taskX {
+    doLast {
+        println 'taskX'
+    }
+}
+
+taskX.dependsOn {
+    tasks.findAll { task -> task.name.startsWith('lib') }
+}
+
+task lib1 {
+    doLast {
+        println 'lib1'
+    }
+}
+
+task lib2 {
+    doLast {
+        println 'lib2'
+    }
+}
+
+task notALib {
+    doLast {
+        println 'notALib'
+    }
+}
+
+// 3.
+task taskY {
+    doLast {
+        println 'taskY'
+    }
+}
+//taskY.mustRunAfter taskX
+taskY.shouldRunAfter taskX
+
+// 4.
+task disableMe {
+    doLast {
+        println 'This should not be printed if the task is disabled.'
+    }
+}
+disableMe.enabled = false
+// 输出：:app:disableMe SKIPPED
+
+// 5.
+tasks.whenTaskAdded { task ->
+    task.ext.srcDir = 'src/main/java'
+}
+task a
+println "source dir is $a.srcDir"
+
+// 6.
+allprojects {
+    task hello0 {
+        doLast { task ->
+            println "I am $task.project.name"
+        }
+    }
+}
+
+// 7. 闭包使用
+// 闭包 Closure，一段代码，需要用 {} 包围
+// 格式： def c = { parameters -> code } 或 def c = { code }
+// 调用： c.call(parameters) 或 c(parameters)
+def testClosure1 = {
+    def param ->
+        println 'testClosure1 ' + param
+}
+
+def testClosure2 = {
+    def param ->
+        println 'testClosure2 ' + param
+}
+
+task testClosure {
+    doLast {
+        testClosure1('release')
+        testClosure2('release')
+    }
+}
+
+
+
+
+
+
+
+
+
