@@ -1,7 +1,11 @@
 package com.xss.mobile.activity;
 
+import android.annotation.TargetApi;
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Gravity;
@@ -19,15 +23,69 @@ import com.xss.mobile.utils.bitmap.BitmapWorkerTask;
 public class BitmapTestActivity extends Activity {
     private ImageView imageView;
 
+    BitmapFactory.Options options;
+    boolean isOnClicked = false;
+    int inDensity;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_bitmap_test);
 
         imageView = (ImageView) findViewById(R.id.imageView);
-//        loadBitmap(R.mipmap.ic_launcher, imageView);
+        imageView.setImageBitmap(getBitmap(R.drawable.welcome));
 
-        showDialog();
+        options = new BitmapFactory.Options();
+        imageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                isOnClicked = !isOnClicked;
+
+                imageView.setImageBitmap(getBitmap(R.drawable.welcome));
+            }
+        });
+    }
+
+    /**
+     * 1080
+     * @param resId
+     * @return
+     */
+    @TargetApi(Build.VERSION_CODES.KITKAT)
+    private Bitmap getBitmap(int resId) {
+        options = new BitmapFactory.Options();
+
+        options.inJustDecodeBounds = true;
+        BitmapFactory.decodeResource(getResources(), resId, options);
+//        BitmapFactory.decodeStream(getResources().openRawResource(resId), null, options);
+        Log.e("bit", options.outWidth + ", " + options.outHeight);
+
+        options.inJustDecodeBounds = false;
+//        Bitmap b = BitmapFactory.decodeResource(getResources(), resId, options);
+
+        if (isOnClicked) {
+            // 将inDensity设置为inTargetDensity，避免放大
+            // 这里设置了 inDensity，若放在 xxhdpi，则 inDensity=480，若此时赋值为屏幕 dots-per-inch，1280x720手机，inDensity=320
+            // 相当于
+            options.inDensity = getResources().getDisplayMetrics().densityDpi;
+        }
+
+        // 设置越大，图片越不清晰，占用内存越小
+        options.inSampleSize = 4;
+
+        /**
+         * 初始，未点击，opts.inDensity = 480，byte = 230400
+         *        点击，opts.inDensity = 320, byte = 518400  上下byte比例 = 1.5 * 1.5 = 2.25
+         *
+         * 最终 bitmap.mHeight = 图片高 * 1/inSampleSize * inTarget/inDensity
+         */
+
+
+        Bitmap b = BitmapFactory.decodeResource(getResources(), resId, options); // BitmapFactory.decodeStream(getResources().openRawResource(resId), null, options);
+        Log.e("byte", b.getByteCount() + ", " + b.getAllocationByteCount());
+
+        return b;
+
     }
 
     private void showDialog() {
@@ -43,7 +101,7 @@ public class BitmapTestActivity extends Activity {
     @Override
     public void onAttachedToWindow() {
         super.onAttachedToWindow();
-        showPopWindow();
+//        showPopWindow();
     }
 
     private void showPopWindow() {

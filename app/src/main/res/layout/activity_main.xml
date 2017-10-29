@@ -44,7 +44,7 @@
             android:id="@+id/btn_to_get_picture"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="To XmlParserActivity"
+            android:text="To GetPictureActivity"
             android:layout_below="@+id/btn_to_parser_xml"/>
 
         <Button

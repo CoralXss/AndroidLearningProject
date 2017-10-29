@@ -7,6 +7,7 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
+    android:background="#000"
     tools:context="com.xss.mobile.activity.launchmode.FirstActivity">
 
     <Button
@@ -14,5 +15,50 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Open SecondActivity"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_marginTop="10dp"
+        android:layout_below="@id/btn_to_second">
+
+        <RatingBar
+            android:id="@+id/ratingBar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:numStars="5"
+            android:rating="3"
+            android:stepSize="1"
+            style="@style/roomRatingBar"
+            android:minHeight="22dp"
+            android:maxHeight="@dimen/rating_height"/>
+
+        <RatingBar
+            android:id="@+id/ratingBar2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_below="@id/ratingBar"
+            android:numStars="5"
+            android:rating="3"
+            style="@style/roomRatingBar"
+            android:isIndicator="true"
+            android:maxHeight="@dimen/rating_height"
+            android:minHeight="@dimen/rating_height" />
+
+        <RatingBar
+            android:id="@+id/ratingBar3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_below="@id/ratingBar2"
+            android:numStars="5"
+            android:rating="3"
+            style="?android:attr/ratingBarStyleSmall"/>
+
+    </LinearLayout>
+
+
 
 </RelativeLayout>

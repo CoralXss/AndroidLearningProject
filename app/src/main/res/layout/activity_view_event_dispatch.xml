@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.xss.mobile.activity.view.ViewEventDispatchActivity">
+
+
+    <com.xss.mobile.widget.view.GrandParentView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/color_red">
+
+        <com.xss.mobile.widget.view.ParentView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@color/color_yellow">
+
+            <com.xss.mobile.widget.view.ChildView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <com.xss.mobile.widget.view.ChildView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+        </com.xss.mobile.widget.view.ParentView>
+
+    </com.xss.mobile.widget.view.GrandParentView>
+
+</LinearLayout>

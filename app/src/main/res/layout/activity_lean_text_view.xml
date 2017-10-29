@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/activity_lean_text_view"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@drawable/bg_qianglietuijian_white"
+    tools:context="com.xss.mobile.activity.customview.LeanTextViewActivity">
+
+    <FrameLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <com.xss.mobile.widget.LeanLabelTextView
+            android:id="@+id/tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:leanLabelText="强烈推荐"
+            app:leanLabelTextColor="@color/white"
+            app:leanLabelTextSize="48sp"
+            app:leanLabelTextGravity="center"/>
+
+        <com.xss.mobile.widget.LeanLabelTextView
+            android:id="@+id/tv1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:leanLabelText="碧海名园十里银滩"
+            app:leanLabelTextColor="@color/white"
+            app:leanLabelTextSize="24sp"
+            android:layout_marginTop="30dp"
+            android:layout_marginLeft="30dp"
+            app:leanPaddingLeft="12dp"/>
+
+        <com.xss.mobile.widget.LeanLabelTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:leanLabelText="1000元/平"
+            app:leanLabelTextColor="@color/white"
+            app:leanLabelTextSize="18sp"
+            android:layout_marginTop="60dp"
+            android:layout_marginLeft="60dp"
+            app:leanPaddingLeft="24dp"/>
+    </FrameLayout>
+
+    <FrameLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:layout_marginLeft="200dp">
+
+        <com.xss.mobile.widget.LeanLabelTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:leanLabelText="南山科技园"
+            app:leanLabelTextColor="@color/white"
+            app:leanLabelTextSize="16sp" />
+
+        <com.xss.mobile.widget.LeanLabelTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:leanLabelText="开盘时间：2017.01.02"
+            app:leanLabelTextColor="@color/white"
+            app:leanLabelTextSize="16sp"
+            android:layout_marginTop="0dp"
+            android:layout_marginLeft="0dp" />
+    </FrameLayout>
+
+    <com.xss.mobile.widget.LeanImageView
+        android:layout_width="300dp"
+        android:layout_height="300dp"
+        android:src="@drawable/bg_zuixindongtai"
+        android:layout_gravity="center"/>
+
+</FrameLayout>

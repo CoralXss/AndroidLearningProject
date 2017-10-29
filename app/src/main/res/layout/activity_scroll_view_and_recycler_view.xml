@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.xss.mobile.activity.scrollconflict.ScrollViewAndRecyclerViewActivity">
+
+    <TextView
+        android:id="@+id/tv_click1"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:text="滑动冲突之ScrollView嵌套ListView/EditText"
+        android:gravity="center"
+        android:background="#fff"/>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#d0d0d0" />
+
+    <TextView
+        android:id="@+id/tv_click2"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:text="滑动冲突之重现ViewPager滑动冲突"
+        android:gravity="center"
+        android:background="#fff"/>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#d0d0d0" />
+
+    <com.xss.mobile.activity.scrollconflict.ScrollInterceptScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="12dp"
+        android:fillViewport="true">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                android:text="华丽的分割线"
+                android:gravity="center"
+                android:background="#6d00"
+                android:layout_marginBottom="12dp"/>
+
+            <!--<RelativeLayout-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:descendantFocusability="blocksDescendants">-->
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/rv_list"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+            <!--</RelativeLayout>-->
+
+        </LinearLayout>
+    </com.xss.mobile.activity.scrollconflict.ScrollInterceptScrollView>
+</LinearLayout>

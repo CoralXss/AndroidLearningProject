@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<paths xmlns:android="http://schemas.android.com/apk/res/android">
+    <!--外部存储设备根目录下的任意一张图片了（包括其子目录）-->
+    <external-path name="images_all" path="" />
+    <external-path name="camera_photos" path="/images" />
+</paths>

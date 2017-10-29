@@ -1,4 +1,6 @@
 apply plugin: 'com.android.application'
+apply plugin: 'org.greenrobot.greendao'
+apply plugin: 'com.jakewharton.butterknife'
 
 android {
     compileSdkVersion ANDROID_COMPILE_SDK_VERSION
@@ -16,6 +18,18 @@ android {
             ldLibs "log", "z", "m"
             abiFilters "armeabi", "armeabi-v7a", "x86"
         }
+
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+
+        packagingOptions {
+            exclude 'LICENSE.txt'
+        }
+
+//        greendao {
+//            schemaVersion 1
+//            daoPackage 'com.anye.greendao.gen'
+//            targetGenDir 'src/main/java'
+//        }
     }
     buildTypes {
         release {
@@ -23,17 +37,59 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+
+    dataBinding {
+        enabled = true
+    }
+}
+
+// 强制使用 25.1.1 版本
+configurations.all {
+    resolutionStrategy.force 'com.android.support:support-annotations:25.1.1'
+    resolutionStrategy.force 'com.android.support:recyclerview-v7:25.1.1'
+    resolutionStrategy.force 'com.android.support:design:25.1.1'
+    resolutionStrategy.force 'com.android.support:appcompat-v7:25.1.1'
+    resolutionStrategy.force 'com.android.support:support-v4:25.1.1'
 }
 
 dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
-    testCompile 'junit:junit:4.12'
     compile "com.android.support:appcompat-v7:${APPCOMPAT_VERSION}"
     compile "com.android.support:recyclerview-v7:${APPCOMPAT_VERSION}"
     compile project(':fdd-volley')
+    //    compile 'com.squareup.okhttp:okhttp:1.5.0'
+    compile files('libs/ZXing-core-3.2.0.jar')
+    compile project(':fdd_core')
+    compile files('libs/fdd-asmack.jar')
+    // Espresso 相关的引用
+    androidTestCompile('com.android.support.test.espresso:espresso-core:2.1') {
+        exclude group: 'javax.inject'
+    }
 
+
+
+    compile 'org.xutils:xutils:3.3.40'
+    compile 'org.greenrobot:eventbus:3.0.0'
+    compile 'com.jakewharton:butterknife:8.5.1'
     compile 'com.squareup.okhttp3:okhttp:3.4.1'
     compile 'com.squareup.okio:okio:1.9.0'
-
-//    compile 'com.squareup.okhttp:okhttp:1.5.0'
+    compile 'com.squareup.retrofit2:retrofit:2.0.0'
+    compile 'com.squareup.retrofit2:converter-gson:2.0.0'
+    compile 'com.squareup.retrofit2:adapter-rxjava:2.0.0'
+    compile 'io.reactivex:rxjava:1.1.5'
+    compile 'io.reactivex:rxandroid:1.2.0'
+    compile 'com.android.support.constraint:constraint-layout:1.0.0'
+    compile 'com.android.support:support-annotations:25.1.1'
+    compile 'org.greenrobot:greendao:3.2.0'
+    compile 'org.greenrobot:greendao-generator:3.2.0'
+    compile 'com.google.dagger:dagger:2.0'
+    testCompile 'junit:junit:4.12'
+    testCompile 'org.mockito:mockito-core:2.7.1'
+    androidTestCompile 'com.android.support:support-annotations:25.1.1'
+    androidTestCompile 'com.android.support.test.espresso:espresso-intents:2.1'
+    androidTestCompile 'com.android.support.test.espresso:espresso-contrib:2.1'
+    androidTestCompile 'com.android.support.test:runner:0.2'
+    annotationProcessor 'com.jakewharton:butterknife-compiler:8.5.1'
+    annotationProcessor 'com.google.dagger:dagger-compiler:2.0'
+    provided 'org.glassfish:javax.annotation:10.0-b28'
 }

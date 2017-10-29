@@ -1,0 +1,57 @@
+<!DOCTYPE html> 
+<html lang="en"> 
+<head> 
+ <meta charset="UTF-8"> 
+ <title>Test Title</title> 
+</head> 
+
+<body> 
+
+<h1>Welcome to my blog</h1> 
+ <input type="button" value="JS Call Native: Toast Message" onclick="android.toastMessage()"> 
+ <p></p>
+ <input type="button" value="JS Call Native: Open Activity" onclick="openActivity()"> <br/>
+ <p></p>
+ <input accept="image/*" capture="camera" id="imgFile" name="imgFile"  type="file"  onchange="previewFile()" > <br/>
+ <p></p>
+ <img src="" id="img" height="600" width="526" />
+
+ <p></p>
+ <input type="text" value="hhhh" id="pp"/> <br/>
+ 
+<script type="text/javascript"> 
+	//1. js 调用 app webView 方法
+	function toastMessage() { 
+		android.toastMessage("Haha ,i m webview msg new"); 
+	} 
+	
+	function openActivity() {
+		android.openActivity();
+	}
+
+	// 2. js供 Native 调用的方法
+	function toNative(msg) {
+		alert("Hello, from H5, received msg: " + msg);
+		var p = document.getElementById("pp");
+		p.value = msg;
+	}
+	
+	function previewFile() {
+		var img = document.getElementById("img");
+		// 仅限上传单张图片
+	    var file = document.querySelector('input[type=file]').files[0];
+	    
+	    var reader  = new FileReader();	    	    
+		reader.addEventListener("load", function () {
+			    img.src = reader.result;  // 存储在本地的图片的base64编码
+			    <!--alert("result=" + reader.result);-->
+	    }, false);
+
+	    if (file) {
+	      reader.readAsDataURL(file);
+	    }
+	 }
+</script> 
+
+</body> 
+</html> 

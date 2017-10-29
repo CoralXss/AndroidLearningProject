@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.view.ViewStub;
 import android.widget.Button;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import com.xss.mobile.R;
@@ -49,13 +50,13 @@ public class ViewStubTestActivity extends Activity {
             public void onClick(View view) {
 //                stub_import.setVisibility(View.VISIBLE);
 
-                // 不为null，说明是第一次加载
-                if (null != stub_import.getParent()) {
+                // 不为null，说明是第一次加载，第二次加载就为null了
+//                if (null != stub_import.getParent()) {
                     stub_import.inflate();
 
                     tv_view_stub_content = (TextView) findViewById(R.id.tv_view_stub_content);
                     showPhoneSystem();
-                }
+//                }
             }
         });
     }

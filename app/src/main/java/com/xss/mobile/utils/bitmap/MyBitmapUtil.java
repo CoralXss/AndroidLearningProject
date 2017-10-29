@@ -44,7 +44,7 @@ public class MyBitmapUtil {
 
     public static Bitmap decodeSampleBitmapFromResource(Resources resources, int resId, int reqWidth, int reqHeight) {
         final BitmapFactory.Options options = new BitmapFactory.Options();
-        // 设置为true时在解码时可避免内存分配，会返回一个null的bitmap，但是可以得到图片尺寸和类型
+        // 设置为true时在解码时可避免内存分配，会返回一个null的bitmap，但是可以此得到图片尺寸和类型
         options.inJustDecodeBounds = true;
         Bitmap bmBefore = BitmapFactory.decodeResource(resources, resId, options);
         Log.d(TAG, "inJustDecodeBounds = true, bitmap = " + (null == bmBefore));

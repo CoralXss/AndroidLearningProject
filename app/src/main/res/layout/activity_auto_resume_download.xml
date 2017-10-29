@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_auto_resume_download"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.xss.mobile.activity.network.AutoResumeDownloadActivity">
+
+    <EditText
+        android:id="@+id/edt_ip"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="10dp"
+        android:hint="IP地址"
+        android:text="10.0.44.46"/>
+
+    <Button
+        android:id="@+id/btn_download"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="断点续传下载文件"
+        android:layout_marginTop="10dp"/>
+
+    <Button
+        android:id="@+id/btn_download_okhttp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="OKHTTP下载文件"
+        android:layout_marginTop="10dp"/>
+
+    <Button
+        android:id="@+id/btn_upload_okhttp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="OKHTTP上传文件"
+        android:layout_marginTop="10dp"/>
+
+    <Button
+        android:id="@+id/btn_upload_multipart_okhttp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="OKHTTP上传文件Multipart"
+        android:layout_marginTop="10dp"/>
+
+    <Button
+        android:id="@+id/btn_upload_multipart_connection"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="URLConnection上传文件Multipart"
+        android:layout_marginTop="10dp"/>
+
+    <Button
+        android:id="@+id/btn_upload_xutil"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="xUtils上传文件"
+        android:layout_marginTop="10dp"/>
+
+    <Button
+        android:id="@+id/btn_get"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="GET REQUEST"
+        android:layout_marginTop="10dp"/>
+
+    <Button
+        android:id="@+id/btn_post"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="POST REQUEST"
+        android:layout_marginTop="10dp"/>
+
+    <TextView
+        android:id="@+id/tv_content"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="..."
+        android:layout_marginTop="15dp"/>
+</LinearLayout>

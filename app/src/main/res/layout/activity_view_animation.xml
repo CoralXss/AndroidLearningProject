@@ -9,13 +9,53 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <TextView
+        <RelativeLayout
+            android:gravity="center"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="kkkkkkk"
-            android:padding="16dp"
-            android:lineSpacingMultiplier="1.2"
-            style="?android:textAppearanceMedium"/>
+            android:layout_height="200dp"
+            android:background="#fff">
+
+            <TextView
+                android:id="@+id/tv_record"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/tv_circle_bg1"
+                android:gravity="center"
+                android:text="报备\n客户"
+                android:layout_centerInParent="true"
+                android:textColor="#f25824"
+                android:textSize="20sp" />
+
+            <View
+                android:id="@+id/v_ring"
+                android:layout_width="116dp"
+                android:layout_height="116dp"
+                android:layout_centerInParent="true"
+                android:background="@drawable/tv_circle_ring_bg1_1" />
+
+            <View
+                android:id="@+id/v_ring_1"
+                android:layout_width="116dp"
+                android:layout_height="116dp"
+                android:layout_centerInParent="true"
+                android:background="@drawable/tv_circle_ring_bg1" />
+
+            <View
+                android:id="@+id/v_ring_2"
+                android:layout_width="116dp"
+                android:layout_height="116dp"
+                android:layout_centerInParent="true"
+                android:background="@drawable/tv_circle_ring_bg1" />
+
+            <View
+                android:id="@+id/v_ring_3"
+                android:layout_width="116dp"
+                android:layout_height="116dp"
+                android:layout_centerInParent="true"
+                android:background="@drawable/tv_circle_ring_bg1" />
+
+        </RelativeLayout>
+
     </ScrollView>
 
     <ProgressBar

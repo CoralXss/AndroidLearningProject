@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    package="com.xss.mobile">
+
+    <uses-sdk
+        android:targetSdkVersion="25"
+        android:minSdkVersion="15"
+         />
+
+    <application
+        android:allowBackup="true"
+        android:supportsRtl="true" />
+
+</manifest>

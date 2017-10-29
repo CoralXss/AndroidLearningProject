@@ -12,6 +12,7 @@ import android.os.Build;
 import android.os.Environment;
 import android.provider.DocumentsContract;
 import android.provider.MediaStore;
+import android.util.Log;
 
 import java.io.Closeable;
 import java.io.File;
@@ -181,7 +182,28 @@ public class CommonUtil {
                 .getAuthority());
     }
 
+    public static String savePosterImage(Context context, String name, Bitmap bitmap) {
+        String path;
+        if (sdCardIsAvailable()) {
+            path = getPicRootPath();
+        } else {
+            path = Environment.getExternalStorageState() + "/" + "fanddPic";
+        }
+        File file = new File(path, name + ".jpg");
+        if (file.exists()) {
+            file.delete();
+        }
+        try {
+            file = mkFilePath(file);
+            saveImage2File(file, bitmap, false);
+            scanPhotos(file.getAbsolutePath(), context);
+            return file.getAbsolutePath();
+        } catch (IOException e) {
+//            LogUtils.e(TAG, Log.getStackTraceString(e));
+            return "";
+        }
 
+    }
 
     public static File mkFilePath(File file) throws IOException {
         File lFile = file;

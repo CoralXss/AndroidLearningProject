@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.xss.mobile.activity.broadcast.BroadcastTestActivity">
+
+    <TextView
+        android:id="@+id/tv_msg"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        android:text=""
+        android:hint="Attention !"
+        android:padding="10dp"/>
+
+    <Button
+        android:id="@+id/btn_send_my_handler_thread"
+        android:layout_width="0dp"
+        android:layout_height="45dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_msg"
+        android:text="发送广播->MyHandlerThread"/>
+
+    <TextView
+        android:id="@+id/tv_msg_handler_thread"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btn_send_my_handler_thread"
+        android:text=""
+        android:hint="show messages !"
+        android:padding="10dp"/>
+
+    <Button
+        android:id="@+id/btn_send_intent_service"
+        android:layout_width="0dp"
+        android:layout_height="45dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_msg_handler_thread"
+        android:text="发送广播->IntentService"/>
+
+    <TextView
+        android:id="@+id/tv_msg_intent_service"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btn_send_intent_service"
+        android:text=""
+        android:hint="show messages !"
+        android:padding="10dp"/>
+
+</android.support.constraint.ConstraintLayout>

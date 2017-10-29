@@ -9,6 +9,10 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Message;
+import android.provider.MediaStore;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
+import android.support.v4.content.FileProvider;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.KeyEvent;
@@ -30,6 +34,8 @@ import com.xss.mobile.utils.AppUtils;
 import com.xss.mobile.utils.CommonUtil;
 
 import java.io.File;
+import java.security.Permission;
+import java.util.jar.Manifest;
 
 /**
  * Created by xss on 2016/10/18.
@@ -62,10 +68,16 @@ public class WebViewActivity extends Activity {
         webSettings.setJavaScriptEnabled(true);
         //设置可以访问文件
         webSettings.setAllowFileAccess(true);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
+            webView.getSettings().setAllowFileAccessFromFileURLs(true);
+            webView.getSettings().setAllowUniversalAccessFromFileURLs(true);
+        }
+
         //设置支持缩放
         webSettings.setBuiltInZoomControls(true);
         //加载需要显示的网页
-        // 加载 asset目录下的本地html文件： mUrl = "file:///android_asset/web_app.html"
+        // 加载 asset目录下的本地html文件：
+        mUrl = "file:///android_asset/web_app_upload_image.html";
         webView.loadUrl(mUrl);
         //设置WebViewClient用来辅助WebView处理各种通知请求事件等，如更新历史记录、网页开始加载/完毕、报告错误信息等
         setWebViewClient();
@@ -100,39 +112,118 @@ public class WebViewActivity extends Activity {
     }
 
     private static final int REQUEST_LOAD_IMAGE_FROM_GALLERY = 0x10;
-    private ValueCallback<Uri> mSingleFileCallback;
-    private ValueCallback<Uri[]> mMultiFileCallback;
+    private static final int REQUEST_CROP_PHOTO = 0x11;
+    private ValueCallback<Uri> mSingleFileCallback;    // 图片选择4.4以下
+    private ValueCallback<Uri[]> mMultiFileCallback;   // 图片选择5.0以上
     private Uri imageUri;
     private void setWebChromeClient() {
-        webView.setWebChromeClient(new WebChromeClient() {
+        webView.setWebChromeClient(new MyWebChromeClient());
+    }
 
-            @Override
-            public void onReceivedTitle(WebView view, String title) {
-                tv_title.setText(title);
-            }
+    public class MyWebChromeClient extends WebChromeClient {
 
-            @Override
-            public boolean onShowFileChooser(WebView webView, ValueCallback<Uri[]> filePathCallback, FileChooserParams fileChooserParams) {
-                Log.e("Webview", "onShowFileChooser");
-                mMultiFileCallback = filePathCallback;
-                openGallery();
+        @Override
+        public void onReceivedTitle(WebView view, String title) {
+            tv_title.setText(title);
+        }
 
-                return true;  // 一定要return true 防止下次回到 WebView页面重新调用，抛异常 duplicate result
-            }
+        // For 5.0以上
+        @Override
+        public boolean onShowFileChooser(WebView webView, ValueCallback<Uri[]> filePathCallback, FileChooserParams fileChooserParams) {
+            Log.e("Webview", "onShowFileChooser + 5.0");
+            mMultiFileCallback = filePathCallback;
+            openGallery();
 
-            // 5.0以下的文件上传监听方法
-            public void openFileChooser(ValueCallback<Uri> uploadMsg) {
-                Log.e("Webview", "openFileChooser");
-                mSingleFileCallback = uploadMsg;
-                openGallery();
-            }
-        });
+            return true;  // 一定要return true 防止下次回到 WebView页面重新调用，抛异常 duplicate result
+        }
+
+        // For Android 3.0+
+        public void openFileChooser(ValueCallback<Uri> uploadMsg) {
+            Log.e("Webview", "openFileChooser + 3.0");
+            mSingleFileCallback = uploadMsg;
+            openGallery();
+        }
+
+        // For Android 3.0+
+        public void openFileChooser(ValueCallback uploadMsg, String acceptType) {
+            Log.e("Webview", "openFileChooser + 3.0+");
+            mSingleFileCallback = uploadMsg;
+            openGallery();
+        }
+
+        // For Android 4.1
+        public void openFileChooser(ValueCallback<Uri> uploadMsg, String acceptType, String capture) {
+            Log.e("Webview", "openFileChooser + 4.1");
+            mSingleFileCallback = uploadMsg;
+            openGallery();
+        }
     }
 
     private void openGallery() {
         Intent intent = new Intent(Intent.ACTION_GET_CONTENT, null);
         intent.setType("image/*");
         startActivityForResult(intent, REQUEST_LOAD_IMAGE_FROM_GALLERY);
+    }
+
+    /**
+     * 从相册截取小图
+     * @param uri
+     */
+    private void startPhotoZoom(Uri uri) {
+        Intent intent = new Intent("com.android.camera.action.CROP");
+        intent.setDataAndType(uri, "image/*");
+        intent.putExtra("crop", "true");
+        intent.putExtra("scale", true);
+        intent.putExtra("scaleUpIfNeeded", true);
+        intent.putExtra("aspectY", 1);
+        intent.putExtra("aspectX", 1);
+        intent.putExtra("outputX", 200);
+        intent.putExtra("outputY", 200);
+        intent.putExtra("return-data", false);  // false
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.KITKAT_WATCH) {
+            intent.putExtra(MediaStore.EXTRA_OUTPUT, uri);
+        }
+        intent.putExtra("outputFormat", Bitmap.CompressFormat.JPEG.toString());
+        intent.putExtra("noFaceDetection", true); // no face detection
+        startActivityForResult(intent, REQUEST_CROP_PHOTO);
+    }
+
+    private void upload(Intent data) {
+        if (mSingleFileCallback != null) {  // 5.0以下处理方式
+
+            mSingleFileCallback.onReceiveValue(imageUri);
+            mSingleFileCallback = null;
+
+        } else if (mMultiFileCallback != null) {  // 5.0版本以上
+            Uri[] uris = null;
+            if (data == null) {
+                uris = new Uri[] {imageUri};
+            } else {
+
+                String dataString = data.getDataString();
+                    /*
+                    // 多选图片[图片一定要压缩，转化为base64网页加载很慢]
+                    ClipData clipData = data.getClipData();
+                    if (clipData != null) {
+                        int size = clipData.getItemCount();
+                        uris = new Uri[size];
+                        for (int i = 0; i < size; i++) {
+                            // 将所选图片的 url保存到 uris数组中
+                            uris[i] = clipData.getItemAt(i).getUri();
+                        }
+                    } */
+                if (!TextUtils.isEmpty(dataString)) {
+                    uris = new Uri[] {Uri.parse(dataString)};
+                }
+            }
+
+            if (uris == null) {
+                mMultiFileCallback.onReceiveValue(null);
+            } else {
+                mMultiFileCallback.onReceiveValue(uris);
+            }
+            mMultiFileCallback = null;
+        }
     }
 
     @Override
@@ -147,45 +238,16 @@ public class WebViewActivity extends Activity {
             if (data != null) {
                 String url = CommonUtil.getPath(WebViewActivity.this, data.getData());
                 File temp = new File(url);
+                Log.e("image", "before zoom " + (temp.length() ) + "B");
                 tempUri = Uri.fromFile(temp);
+                imageUri = tempUri;
+
+                upload(data);
             }
 
-            if (mSingleFileCallback != null) { // 5.0以下处理方式
-                if (data != null) {
-                    mSingleFileCallback.onReceiveValue(tempUri);
-                } else {
-                    mSingleFileCallback.onReceiveValue(imageUri);
-                }
-                mSingleFileCallback = null;
-            } else if (mMultiFileCallback != null) { // 5.0版本以上
-                Uri[] uris = null;
-                if (data == null) {
-                    uris = new Uri[] {imageUri};
-                } else {
-                    // 多选图片[图片一定要压缩，转化为base网页加载很慢]
-                    String dataString = data.getDataString();
-                    ClipData clipData = data.getClipData();
-                    if (clipData != null) {
-                        int size = clipData.getItemCount();
-                        uris = new Uri[size];
-                        for (int i = 0; i < size; i++) {
-                            // 将所选图片的 url保存到 uris数组中
-                            uris[i] = clipData.getItemAt(i).getUri();
-                        }
-                    }
-                    if (!TextUtils.isEmpty(dataString)) {
-                        uris = new Uri[] {Uri.parse(dataString)};
-                    }
-                }
+        } else if (requestCode == REQUEST_CROP_PHOTO) {
 
-                if (uris == null) {
-                    mMultiFileCallback.onReceiveValue(null);
-                    mMultiFileCallback = null;
-                } else {
-                    mMultiFileCallback.onReceiveValue(uris);
-                    mMultiFileCallback = null;
-                }
-            }
+
         }
     }
 

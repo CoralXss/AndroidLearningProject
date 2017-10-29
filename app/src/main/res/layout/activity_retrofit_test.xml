@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.xss.mobile.activity.retrofit.RetrofitTestActivity">
+
+    <Button
+        android:id="@+id/click_me_BN"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:padding="5dp"
+        android:text="点我"
+        android:textSize="16sp"/>
+
+    <Button
+        android:id="@+id/rxjava_BN"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:padding="5dp"
+        android:text="RxJava异步传递消息"
+        android:textSize="16sp"/>
+
+    <TextView
+        android:id="@+id/result_TV"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@id/click_me_BN"
+        android:text="Hello World!"
+        android:textSize="16sp"/>
+
+</LinearLayout>

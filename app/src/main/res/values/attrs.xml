@@ -55,4 +55,90 @@
     </declare-styleable>
 
 
+    <declare-styleable name="LeanTextView">
+        <attr name="leanDegree" format="dimension" />
+    </declare-styleable>
+
+    <declare-styleable name="LabelTextView">
+        <attr name="backgroundColor" format="color" />
+
+        <attr name="txtColor" format="color" />
+        <attr name="txt" format="string" />
+        <attr name="txtSize" format="dimension" />
+
+        <attr name="labelTopPadding" format="dimension" />
+        <attr name="labelCenterPadding" format="dimension" />
+        <attr name="labelBottomPadding" format="dimension" />
+
+        <attr name="numStyle">
+            <enum name="normal" value="0" />
+            <enum name="italic" value="1" />
+            <enum name="bold" value="2" />
+        </attr>
+        <attr name="textStyle">
+            <enum name="normal" value="0" />
+            <enum name="italic" value="1" />
+            <enum name="bold" value="2" />
+        </attr>
+        <attr name="direction">
+            <enum name="leftTop" value="-45" />
+            <enum name="rightTop" value="45" />
+        </attr>
+    </declare-styleable>
+
+    <declare-styleable name="LeanLabelTextView">
+        <attr name="leanLabelText" format="string" />
+        <attr name="leanLabelTextSize" format="dimension" />
+        <attr name="leanLabelTextColor" format="color" />
+
+        <attr name="leanPaddingLeft" format="dimension" />
+        <attr name="leanPaddingRight" format="dimension" />
+        <attr name="leanMarginLeft" format="dimension" />
+        <attr name="leanMarginRight" format="dimension" />
+        <attr name="leanMarginTop" format="dimension" />
+
+        <attr name="leanLabelTextGravity" format="enum">
+            <enum name="center" value="1" />
+            <enum name="left" value="0" />
+        </attr>
+    </declare-styleable>
+
+
+    <declare-styleable name="LeanTextWithThreeView">
+        <attr name="leanText" format="string" />
+        <attr name="leanTextSize" format="dimension" />
+        <attr name="leanTextColor" format="color" />
+
+        <attr name="leanText2" format="string" />
+        <attr name="leanTextSize2" format="dimension" />
+        <attr name="leanTextColor2" format="color" />
+
+        <attr name="leanText3" format="string" />
+        <attr name="leanTextSize3" format="dimension" />
+        <attr name="leanTextColor3" format="color" />
+
+        <attr name="leanSpan" format="dimension" />
+        <attr name="leanSpan1" format="dimension" />
+        <attr name="leanSpan2" format="dimension" />
+
+        <attr name="leanTextNum" format="integer" />
+
+        <attr name="leanTextVisible" format="enum">
+            <enum name="visible" value="0" />
+            <enum name="gone" value="1" />
+        </attr>
+        <attr name="leanText2Visible" format="enum">
+            <enum name="visible" value="0" />
+            <enum name="gone" value="1" />
+        </attr>
+        <attr name="leanText3Visible" format="enum">
+            <enum name="visible" value="0" />
+            <enum name="gone" value="1" />
+        </attr>
+
+        <attr name="leanTextGravity" format="enum">
+            <enum name="center" value="1" />
+            <enum name="left" value="0" />
+        </attr>
+    </declare-styleable>
 </resources>

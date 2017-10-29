@@ -1,12 +1,16 @@
 package com.xss.mobile.utils;
 
+import android.content.Context;
 import android.content.res.AssetManager;
 import android.graphics.Bitmap;
 import android.graphics.Bitmap.CompressFormat;
 import android.graphics.BitmapFactory;
 import android.graphics.Matrix;
 import android.media.ExifInterface;
+import android.os.Build;
+import android.support.annotation.RequiresApi;
 import android.text.TextUtils;
+import android.util.Log;
 
 import java.io.BufferedInputStream;
 import java.io.File;
@@ -443,5 +447,64 @@ public class BitmapUtils {
             i += 1;
         }
         return bitmap;
+    }
+
+    public static Bitmap decodeBitmap(Context context, int resImageId, int inSampleSize) {
+        BitmapFactory.Options options = new BitmapFactory.Options();
+        // 设置越大，图片越不清晰，占用内存越小
+        options.inSampleSize = inSampleSize;
+        Bitmap bitmap = BitmapFactory.decodeStream(context.getResources().openRawResource(resImageId), null, options);
+
+        return bitmap;
+    }
+
+    /**
+     * 对于闪屏页，要求的宽和高为 屏幕高和宽(这里要查看闪屏图片在不同分辨率手机占用的内存是否不一样)
+     * @param context
+     * @param resImageId
+     * @param reqWidth
+     * @param reqHeight
+     * @return
+     */
+    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
+    public static Bitmap decodeBitmap(Context context, int resImageId, int reqWidth, int reqHeight) {
+        BitmapFactory.Options options = new BitmapFactory.Options();
+
+        options.inJustDecodeBounds = true;
+        BitmapFactory.decodeResource(context.getResources(), resImageId, options);
+
+        int imageWidth = options.outWidth;
+        int imageHeight = options.outHeight;
+
+        // 设置越大，图片越不清晰，占用内存越小
+        options.inSampleSize = getInSampleSize(reqWidth, reqHeight, imageWidth, imageHeight);
+        options.inJustDecodeBounds = false;
+
+        Log.e("bitmapUtil",  options.inSampleSize + " // " + imageWidth + ", " + imageHeight + " // " + reqWidth + ", " + reqHeight);
+
+        Bitmap bitmap = BitmapFactory.decodeStream(context.getResources().openRawResource(resImageId), null, null);
+
+        // 压缩分辨率的情况：
+        // 4.4   huawei p6   inSampleSize = 4 1080x1920  req: 720x1280   1.5   518400 byte
+        // 5.1.1 vivo x6plus inSampleSize = 4 1080x1920  req: 1080x1920  1     1166400 byte  (增大2.25 = 1.5 * 1.5)
+
+        // 没有压缩的情况：
+        // 4.4   huawei p6   1080x1920  req: 720x1280   1.5   8294400 byte
+        // 5.1.1 vivo x6plus 1080x1920  req: 1080x1920  1     8294400 byte  (增大2.25 = 1.5 * 1.5)
+
+        Log.e("bitmap", bitmap.getByteCount() + ", " + bitmap.getAllocationByteCount());
+
+        return bitmap;
+    }
+
+    public static int getInSampleSize(int reqWidth, int reqHeight, int actualWidth, int actualHeight) {
+        double wRatio = (double) reqWidth / actualWidth;
+        double hRatio = (double) reqHeight / actualHeight;
+        double ratio = Math.min(wRatio, hRatio);
+        float n = 1.0f;
+        while ((n * ratio) <= 2) {
+            n *= 2;
+        }
+        return (int)n;
     }
 }

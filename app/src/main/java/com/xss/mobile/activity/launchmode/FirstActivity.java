@@ -5,17 +5,26 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.RatingBar;
 
 import com.xss.mobile.R;
 
 public class FirstActivity extends AppCompatActivity {
     String TAG = FirstActivity.class.getSimpleName();
 
+    private RatingBar ratingBar, ratingBar2, ratingBar3;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_first);
         Log.d(TAG, "onCreate");
+
+        init();
+
+        if (savedInstanceState != null) {
+            Log.d(TAG, "onCreate saved datas");
+        }
 
         findViewById(R.id.btn_to_second).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -27,6 +36,20 @@ public class FirstActivity extends AppCompatActivity {
         });
     }
 
+    private void init() {
+        /**
+         * RatingBar 用法：
+         * 1. 只能使用 wrap_content，设置星星总数才有效;
+         * 2. 自定义背景图片：1）自定义 layer-list; 2）自定义 style；
+         *                  3）这里设置 minHeight 和 maxheight 一定要和图片高度一致，不然图片显示会被拉伸
+         */
+        ratingBar = (RatingBar) findViewById(R.id.ratingBar);
+        ratingBar2 = (RatingBar) findViewById(R.id.ratingBar2);
+        ratingBar3 = (RatingBar) findViewById(R.id.ratingBar3);
+
+
+    }
+
     @Override
     protected void onNewIntent(Intent intent) {
         super.onNewIntent(intent);
@@ -34,6 +57,12 @@ public class FirstActivity extends AppCompatActivity {
         // 但若Activity被系统杀死，就会调用 onCreate 而不是调用 onNewIntent，一个好的方法就是在 onCreate 和 onNewIntent方法中调用同一个数据处理的方法
         Log.d(TAG, "onNewIntent " + ((null == intent) ? "null" : ("1-1 n hash = " + intent.hashCode())));
 
+    }
+
+    @Override
+    protected void onRestoreInstanceState(Bundle savedInstanceState) {
+        super.onRestoreInstanceState(savedInstanceState);
+        Log.d(TAG, "onRestoreInstanceState");
     }
 
     @Override
@@ -58,6 +87,12 @@ public class FirstActivity extends AppCompatActivity {
     protected void onPause() {
         super.onPause();
         Log.d(TAG, "onPause");
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        Log.d(TAG, "onSaveInstanceState");
     }
 
     @Override

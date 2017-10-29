@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.xss.mobile.activity.scrollconflict.ScrollScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <com.xss.mobile.activity.scrollconflict.ScrollEditText
+            android:id="@+id/sl_edt_content"
+            android:layout_width="match_parent"
+            android:layout_height="80dp"
+            android:background="@color/white"
+            android:gravity="top"
+            android:hint="编辑卖点增加海报获客吸引力。为了海报的美观，最多100字"
+            android:paddingBottom="8dp"
+            android:paddingLeft="12dp"
+            android:paddingRight="12dp"
+            android:paddingTop="10dp"
+            android:textColor="#212121"
+            android:textColorHint="#b4b4b4"
+            android:textSize="16sp"
+            android:focusable="true" />
+
+        <LinearLayout
+            android:id="@+id/ll_content"
+            android:layout_width="match_parent"
+            android:layout_height="1200dp"
+            android:orientation="vertical"
+            android:visibility="visible"
+            android:background="#dede00"/>
+
+    </LinearLayout>
+
+</com.xss.mobile.activity.scrollconflict.ScrollScrollView>
+
+
+<!--<com.xss.mobile.activity.scrollconflict.MyHorizontalScrollView-->
+    <!--xmlns:android="http://schemas.android.com/apk/res/android"-->
+    <!--xmlns:tools="http://schemas.android.com/tools"-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="match_parent"-->
+    <!--tools:context="com.xss.mobile.activity.scrollconflict.ScrollConflictActivity"-->
+    <!--android:fillViewport="true">-->
+
+    <!--<LinearLayout-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="match_parent"-->
+        <!--android:orientation="vertical">-->
+
+        <!--<EditText-->
+            <!--android:id="@+id/edt_content"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="60dp"-->
+            <!--android:background="@color/white"-->
+            <!--android:gravity="top"-->
+            <!--android:hint="编辑卖点增加海报获客吸引力。为了海报的美观，最多100字"-->
+            <!--android:paddingBottom="8dp"-->
+            <!--android:paddingLeft="12dp"-->
+            <!--android:paddingRight="12dp"-->
+            <!--android:paddingTop="10dp"-->
+            <!--android:textColor="#212121"-->
+            <!--android:textColorHint="#b4b4b4"-->
+            <!--android:textSize="16sp" />-->
+
+        <!--<LinearLayout-->
+            <!--android:id="@+id/ll_content"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="match_parent"-->
+            <!--android:orientation="vertical"-->
+            <!--android:visibility="gone"/>-->
+
+        <!--<LinearLayout-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="match_parent"-->
+            <!--android:orientation="horizontal">-->
+
+            <!--<ListView-->
+                <!--android:id="@+id/lv_list"-->
+                <!--android:layout_width="300dp"-->
+                <!--android:layout_height="match_parent"-->
+                <!--android:visibility="visible"/>-->
+
+            <!--<ListView-->
+                <!--android:id="@+id/lv_list_1"-->
+                <!--android:layout_width="300dp"-->
+                <!--android:layout_height="match_parent"/>-->
+
+        <!--</LinearLayout>-->
+
+    <!--</LinearLayout>-->
+
+<!--</com.xss.mobile.activity.scrollconflict.MyHorizontalScrollView>-->

@@ -1,4 +1,4 @@
-package com.xss.mobile.activity;
+package com.xss.mobile.activity.photo;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -15,6 +15,7 @@ import android.view.View;
 import android.widget.ImageView;
 
 import com.xss.mobile.R;
+import com.xss.mobile.utils.ImageUtil;
 
 import java.io.File;
 import java.io.IOException;
@@ -23,6 +24,8 @@ import java.util.Date;
 
 /**
  * Created by xss on 2016/10/25.
+ * desc: 相册：Bitmap截小图，Uri截大图   拍照，因为图片太大，所以都以Uri截图
+ * 使用 Bitmap返回数据，使用 Uri不返回数据
  */
 public class GetPictureActivity extends Activity {
     public static final int REQUEST_CAMERA = 0x0001;
@@ -143,11 +146,24 @@ public class GetPictureActivity extends Activity {
 
         int scale = Math.min(imageW / targetW, imageH / targetH);   // 压缩6倍
         options.inJustDecodeBounds = false;
-        options.inSampleSize = scale;
+//        options.inSampleSize = scale;
         options.inPurgeable = true;
 
-        Bitmap bitmap = BitmapFactory.decodeFile(mCurrentPhotoPath, options);
-        imageView.setImageBitmap(bitmap);
+        final Bitmap bitmap = BitmapFactory.decodeFile(mCurrentPhotoPath, options);
+        Log.e(TAG, bitmap.getByteCount() + "");
+//        imageView.setImageBitmap(bitmap);
+
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                String base64 = ImageUtil.bitmapToBase64(bitmap);
+                Log.e(TAG + "base", base64);
+
+                Log.e(TAG, "Convert to bitmap");
+                Bitmap btm = ImageUtil.base64ToBitmap(base64);
+                imageView.setImageBitmap(btm);
+            }
+        });
     }
 
     private void showPictureDirect(Intent data) {
@@ -174,4 +190,7 @@ public class GetPictureActivity extends Activity {
             }
         }
     }
+
+
+
 }

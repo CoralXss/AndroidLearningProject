@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:fitsSystemWindows="true">
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:src="@drawable/bg_qianglietuijian_white"
+        android:scaleType="centerCrop"/>
+
+        <com.xss.mobile.widget.LeanTextWithThreeView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/leanTextWithThreeView"
+            app:leanText="强烈推荐"
+            app:leanTextSize="48sp"
+            app:leanTextSize2="24sp"
+            app:leanTextSize3="16sp"
+            app:leanSpan="0dp"
+            app:leanSpan1="20dp"
+            app:leanSpan2="10dp"/>
+
+        <com.xss.mobile.widget.LeanTextWithThreeView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right"
+            android:id="@+id/leanTextWithThreeView0"
+            app:leanTextSize="16sp"
+            app:leanTextSize2="16sp"
+            app:leanTextSize3="16sp"
+            app:leanSpan="25dp"
+            app:leanSpan1="10dp"
+            app:leanSpan2="10dp"
+            android:layout_marginTop="50dp" />
+
+    <com.xss.mobile.widget.LeanImageView
+        android:layout_width="240dp"
+        android:layout_height="240dp"
+        android:src="@drawable/bg_zuixindongtai"
+        android:layout_gravity="center"/>
+
+</FrameLayout>
