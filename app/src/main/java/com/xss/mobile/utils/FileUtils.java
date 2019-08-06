@@ -11,6 +11,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
 
 /**
  * Created by xss on 2017/3/10.
@@ -102,5 +103,15 @@ public class FileUtils {
             }
         }
         return content;
+    }
+
+    public static void main(String[] args) {
+        String url = "https%3A%2F%2Fnest-mobile.faas.ele.me%2Fsetuserid%3FappId%3D58338686%26redirectUrl%3Dhttps%253A%252F%252Fyc-h5.faas.ele.me";
+        try {
+            String decoder = URLDecoder.decode(url, "utf-8");
+            System.out.print(decoder);
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
     }
 }

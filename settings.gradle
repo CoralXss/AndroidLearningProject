@@ -1,1 +1,1 @@
-include ':app', ':fdd-volley', ':fdd_core'
+include ':app', ':upload_lib'

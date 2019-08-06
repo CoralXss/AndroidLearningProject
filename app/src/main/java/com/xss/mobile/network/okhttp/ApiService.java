@@ -1,11 +1,16 @@
 package com.xss.mobile.network.okhttp;
 
+import com.xss.mobile.activity.okhttp.AuthRequest;
 import com.xss.mobile.entity.MovieEntity;
 
+import okhttp3.Headers;
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
+import okhttp3.Response;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
+//import retrofit2.Response;
+import retrofit2.http.Body;
 import retrofit2.http.GET;
 import retrofit2.http.HTTP;
 import retrofit2.http.Multipart;
@@ -73,4 +78,6 @@ public interface ApiService {
     Call<ResponseBody> uploadFile(@Part("description") RequestBody desc, @Part MultipartBody.Part file);
 
 
+    @POST("NeedleWebProject/RedirectServlet")
+    Call<ResponseBody> auth();  // @Body AuthRequest request
 }

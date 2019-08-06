@@ -14,14 +14,16 @@ public class ThreeActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_first);
+        setContentView(R.layout.activity_three);
         Log.d(TAG, "onCreate");
 
-        findViewById(R.id.btn_to_second).setOnClickListener(new View.OnClickListener() {
+        findViewById(R.id.btn_to_first).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(ThreeActivity.this, FirstActivity.class);
-                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+//                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                intent.putExtra("msg", "Hello, from three");
                 startActivity(intent);
             }
         });

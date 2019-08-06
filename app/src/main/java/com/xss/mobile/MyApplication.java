@@ -7,7 +7,6 @@ import android.content.Intent;
 import android.os.Process;
 import android.util.Log;
 
-import com.fangdd.android.volley.BuildConfig;
 import com.xss.mobile.activity.dagger2.DaggerComponent;
 import com.xss.mobile.activity.dagger2.DaggerDaggerComponent;
 import com.xss.mobile.activity.dagger2.DaggerModule;

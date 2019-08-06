@@ -7,26 +7,21 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="com.xss.mobile.activity.launchmode.SecondActivity">
+    android:background="#000"
+    tools:context="com.xss.mobile.activity.launchmode.FirstActivity">
 
     <TextView
         android:id="@+id/tv_name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Second"/>
+        android:text="Three"/>
 
     <Button
-        android:id="@+id/btn_to_second"
+        android:id="@+id/btn_to_first"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Open ThreeActivity"
+        android:text="Open FirstActivity"
         android:layout_below="@+id/tv_name"/>
 
-    <Button
-        android:id="@+id/btn_open_self"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Open MySelf"
-        android:layout_below="@id/btn_to_second"/>
 
 </RelativeLayout>

@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+
+    <data>
+        <!--当 type 中的类名冲突了，就是用别名区分-->
+        <import
+            alias="permissions"
+            type="com.xss.mobile.activity.databinding.senior.Permissions" />
+
+        <import
+            alias="view"
+            type="android.view.View" />
+
+    </data>
+
+    <LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        tools:context="com.xss.mobile.activity.databinding.senior.CustomSetterBindingAdapterTestActivity">
+
+        <com.xss.mobile.activity.databinding.senior.PermissionsLinearLayout
+            android:id="@+id/itemView1"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:orientation="horizontal"
+            app:permissions="@{permissions.P_ADD}">
+
+            <TextView
+                android:id="@+id/tv_name"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:text="@string/app_name"
+                android:gravity="center"/>
+
+            <TextView
+                android:id="@+id/tv_msg"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:text="@string/app_name"
+                android:gravity="center"
+                app:permissions="@{permissions.P_ADD}"/>
+
+        </com.xss.mobile.activity.databinding.senior.PermissionsLinearLayout>
+
+        <View style="@style/line_horizontal_style" />
+
+        <TextView
+            android:id="@+id/itemView2"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:text="@string/app_name"
+            android:gravity="center"/>
+
+    </LinearLayout>
+
+</layout>
+

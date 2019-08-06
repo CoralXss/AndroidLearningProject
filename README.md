@@ -1,7 +1,6 @@
 -----Project说明-----
-1、fdd-volley为github公用源码库；
-2、根据官网android-training学习的代码；
-3、涉及内容如下：
+1、根据官网android-training学习的代码；
+2、涉及内容如下：
     3.1 简单属性动画；
     3.2 在ViewPager/GridView中异步加载图片和缓存图片；
     3.3 Service / IntentService使用流程；

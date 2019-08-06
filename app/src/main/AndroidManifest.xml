@@ -15,6 +15,9 @@
     <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
     <uses-permission android:name="android.permission.WRITE_SETTINGS" />
 
+    <!-- 定时器 -->
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+
     <!-- 声明使用OpenGL ES 20 -->
     <uses-feature
         android:glEsVersion="0x00020000"
@@ -72,7 +75,6 @@
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
-        <activity android:name=".activity.volley.VolleyTestActivity" />
         <activity android:name=".activity.IntentServiceTestActivity" />
 
         <service
@@ -81,13 +83,12 @@
         <service android:name=".activity.broadcast.MyService" />
 
         <activity android:name=".activity.ViewStubTestActivity" />
-        <activity android:name=".activity.volley.VolleyPackagingActivity" />
         <activity android:name=".activity.okhttp.OkHttpTestActivity" />
         <activity android:name=".activity.LooperTestActivity" />
-        <!--<activity android:name=".activity.jnitest.JniTestActivity" />-->
+        <!-- <activity android:name=".activity.jnitest.JniTestActivity" /> -->
         <activity
             android:name=".activity.launchmode.FirstActivity"
-            android:launchMode="singleTop" />
+            android:launchMode="singleTask" />
         <activity android:name=".activity.launchmode.SecondActivity" />
         <activity android:name=".activity.launchmode.ThreeActivity" />
         <activity
@@ -172,7 +173,29 @@
             android:name=".activity.databinding.dbinding.CustomBindingActivity"
             android:label="@string/title_activity_custom_binding"
             android:theme="@style/AppTheme" />
-        <activity android:name=".activity.annotation.IntDefTestActivity"></activity>
+        <activity android:name=".activity.annotation.IntDefTestActivity" />
+        <activity android:name=".activity.polling.PollingThreadTestActivity" />
+        <activity android:name=".activity.databinding.senior.CustomSetterBindingAdapterTestActivity" />
+        <activity android:name=".activity.alarm.AlarmManagerTestActivity" />
+
+        <receiver android:name=".activity.alarm.AlarmBroadcastReceiver">
+            <intent-filter android:priority="10000">
+                <action android:name="com.xss.mobiles.ACTION_CHECK_POLLING" />
+            </intent-filter>
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+                <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />
+                <action android:name="android.intent.action.TIME_SET" />
+                <action android:name="android.intent.action.TIMEZONE_CHANGED" />
+                <action android:name="android.intent.action.PROXY_CHANGE" />
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+                <action android:name="android.intent.action.SCREEN_ON" />
+                <action android:name="android.intent.action.SCREEN_OFF" />
+                <action android:name="android.intent.action.USER_PRESENT" />
+            </intent-filter>
+        </receiver>
+
+        <activity android:name=".hook.HookClickListenerActivity"></activity>
     </application>
 
 </manifest>

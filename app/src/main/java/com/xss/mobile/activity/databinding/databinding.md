@@ -116,8 +116,13 @@
 1. 若绑定的是自定义 View，没有具体的 layout 文件，此时不会自动生成 BindingClass，则可以自定义 LayoutBinding进行绑定；
    （详见 Napos，EvaluateRiderView）
 
+2. 设置别名
+When there are class name conflicts, one of the classes may be renamed to an "alias:"
 
-
+<import type="android.view.View"/>
+<import type="com.example.real.estate.View"
+        alias="Vista"/>
+Now, Vista may be used to reference the com.example.real.estate.View and View may be used to reference android.view.View within the layout file.
 
 
 

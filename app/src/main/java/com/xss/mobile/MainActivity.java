@@ -33,6 +33,7 @@ import com.xss.mobile.activity.ViewStubTestActivity;
 import com.xss.mobile.activity.WebViewActivity;
 import com.xss.mobile.activity.XmlParserActivity;
 import com.xss.mobile.activity.ZxingCodeActivity;
+import com.xss.mobile.activity.alarm.AlarmManagerTestActivity;
 import com.xss.mobile.activity.annotation.AnnotationTestActivity;
 import com.xss.mobile.activity.annotation.IntDefTestActivity;
 import com.xss.mobile.activity.bitmap.GridViewBitmapTestActivity;
@@ -46,6 +47,8 @@ import com.xss.mobile.activity.customview.MultiLabelActivity;
 import com.xss.mobile.activity.dagger2.DaggerTestScopeActivity;
 import com.xss.mobile.activity.databinding.DatabindingTestActivity;
 import com.xss.mobile.activity.databinding.dbinding.CustomBindingActivity;
+import com.xss.mobile.activity.databinding.senior.CustomSetterBindingAdapterTestActivity;
+import com.xss.mobile.activity.databinding.senior.PermissionCenter;
 import com.xss.mobile.activity.eventbus.EventbusTestActivity;
 import com.xss.mobile.activity.launchmode.FirstActivity;
 import com.xss.mobile.activity.memorytest.ListViewTestActivity;
@@ -60,11 +63,10 @@ import com.xss.mobile.activity.retrofit.RetrofitTestActivity;
 import com.xss.mobile.activity.rxjava.RxJavaTestActivity;
 import com.xss.mobile.activity.scrollconflict.ScrollViewAndRecyclerViewActivity;
 import com.xss.mobile.activity.view.ViewEventDispatchActivity;
-import com.xss.mobile.activity.volley.VolleyPackagingActivity;
-import com.xss.mobile.activity.volley.VolleyTestActivity;
 import com.xss.mobile.adapter.BaseRecyclerAdapter;
 import com.xss.mobile.adapter.BaseViewHolder;
 import com.xss.mobile.handler.CrashHandler;
+import com.xss.mobile.hook.HookClickListenerActivity;
 import com.xss.mobile.utils.DensityUtil;
 import com.xss.mobile.utils.ViewUtil;
 
@@ -98,6 +100,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         tv_test = (TextView) findViewById(R.id.tv_test);
 
 //        printAppHeapMemorySize();
+
+        initData();
 
         CrashHandler.getInstance().init(MainActivity.this);
 
@@ -215,6 +219,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         Log.e(TAG, str + ", \n" + "download id = " + id);
     }
 
+    private void initData() {
+
+        List<String> list = new ArrayList<>();
+//        list.add("p_add");
+        list.add("p_del");
+        list.add("p_update");
+
+        PermissionCenter.setPermissions(list);
+    }
 
     private void useDexClassLoader() {
         Intent intent = new Intent("com.fangdd.net.retrofitapplication", null);
@@ -303,7 +316,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         e.printStackTrace();
                     }
                 } else {
-                    Intent intent =  new Intent(MainActivity.this, items.get(position).clazz);
+                    Class clazz = items.get(position).clazz;
+                    Intent intent =  new Intent(MainActivity.this, clazz);
+                    intent.putExtra("MainMsg", "from main");
                     startActivity(intent);
                 }
             }
@@ -314,10 +329,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         List<ViewModel> list = new ArrayList<>();
         list.add(new ViewModel("To View Animation", Main2Activity.class)); //ViewAnimationActivity
         list.add(new ViewModel("To Network Test", NetWorkTestActivity.class));
-        list.add(new ViewModel("To Volley Test", VolleyTestActivity.class));
         list.add(new ViewModel("To IntentService Test", IntentServiceTestActivity.class));
         list.add(new ViewModel("To ViewStub Test", ViewStubTestActivity.class));
-        list.add(new ViewModel("To Volley Packaging Test", VolleyPackagingActivity.class));
         list.add(new ViewModel("To OkHttp3 Test", OkHttpTestActivity.class));
         list.add(new ViewModel("To Lopper Test", LooperTestActivity.class));
 //        list.add(new ViewModel("To Jni Test", JniTestActivity.class));
@@ -345,8 +358,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         list.add(new ViewModel("To Test DaggerTestActivity", com.xss.mobile.activity.dagger2.DaggerTestActivity.class));
         list.add(new ViewModel("TO DaggerTestScopeActivity", DaggerTestScopeActivity.class));
         list.add(new ViewModel("To Test DataBindingTestActivity", DatabindingTestActivity.class));
+        list.add(new ViewModel("To Test CustomSetterBindingAdapterTestActivity", CustomSetterBindingAdapterTestActivity.class));
         list.add(new ViewModel("To Test CustomBindingActivity", CustomBindingActivity.class));
         list.add(new ViewModel("To Test DataBindingTestActivity", IntDefTestActivity.class));
+        list.add(new ViewModel("To Test AlarmManagerTestActivity", AlarmManagerTestActivity.class));
+        list.add(new ViewModel("To Test HookClickListenerActivity", HookClickListenerActivity.class));
 
         return list;
     }

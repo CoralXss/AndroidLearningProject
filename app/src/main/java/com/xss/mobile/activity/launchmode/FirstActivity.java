@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.RatingBar;
+import android.widget.TextView;
 
 import com.xss.mobile.R;
 
@@ -14,23 +15,35 @@ public class FirstActivity extends AppCompatActivity {
 
     private RatingBar ratingBar, ratingBar2, ratingBar3;
 
+    String oMainMsg = "";
+
+    TextView tv_name;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_first);
-        Log.d(TAG, "onCreate");
+
+        oMainMsg = getIntent().getStringExtra("MainMsg");
+
+        Log.e(TAG, "onCreate: " + oMainMsg);
+
+        tv_name = (TextView) findViewById(R.id.tv_name);
+        tv_name.append(", ");
+        tv_name.append(oMainMsg);
 
         init();
 
         if (savedInstanceState != null) {
-            Log.d(TAG, "onCreate saved datas");
+            Log.e(TAG, "onCreate saved datas");
         }
 
         findViewById(R.id.btn_to_second).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(FirstActivity.this, FirstActivity.class);
-                Log.d(TAG, "1-1 hash = " + intent.hashCode());
+                Intent intent = new Intent(FirstActivity.this, SecondActivity.class);
+                Log.e(TAG, "1-1 hash = " + intent.hashCode());
+                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 startActivity(intent);
             }
         });
@@ -55,55 +68,63 @@ public class FirstActivity extends AppCompatActivity {
         super.onNewIntent(intent);
         // activity在栈顶时，若以singleTop启动activity，就不会执行 onCreate只执行 onNewIntent，所以在onCreate中执行的数据请求操作需要在该方法中也执行一遍；
         // 但若Activity被系统杀死，就会调用 onCreate 而不是调用 onNewIntent，一个好的方法就是在 onCreate 和 onNewIntent方法中调用同一个数据处理的方法
-        Log.d(TAG, "onNewIntent " + ((null == intent) ? "null" : ("1-1 n hash = " + intent.hashCode())));
+        Log.e(TAG, "onNewIntent " + ((null == intent) ? "null" : ("1-1 n hash = " + intent.hashCode())));
 
+        String msg = intent.getStringExtra("msg");
+        Log.e(TAG, "msg = " + (msg == null ? "null" : msg));
+
+        tv_name.append(",  ");
+        tv_name.append(msg);
+
+        String mainMsg = intent.getStringExtra("MainMsg");
+        Log.e(TAG, "MainMsg = " + (mainMsg == null ? "null" : mainMsg) + ", create = " + oMainMsg);
     }
 
     @Override
     protected void onRestoreInstanceState(Bundle savedInstanceState) {
         super.onRestoreInstanceState(savedInstanceState);
-        Log.d(TAG, "onRestoreInstanceState");
+        Log.e(TAG, "onRestoreInstanceState");
     }
 
     @Override
     protected void onStart() {
         super.onStart();
-        Log.d(TAG, "onStart");
+        Log.e(TAG, "onStart");
     }
 
     @Override
     protected void onRestart() {
         super.onRestart();
-        Log.d(TAG, "onRestart");
+        Log.e(TAG, "onRestart");
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        Log.d(TAG, "onResume");
+        Log.e(TAG, "onResume");
     }
 
     @Override
     protected void onPause() {
         super.onPause();
-        Log.d(TAG, "onPause");
+        Log.e(TAG, "onPause");
     }
 
     @Override
     protected void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
-        Log.d(TAG, "onSaveInstanceState");
+        Log.e(TAG, "onSaveInstanceState");
     }
 
     @Override
     protected void onStop() {
         super.onStop();
-        Log.d(TAG, "onStop");
+        Log.e(TAG, "onStop");
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        Log.d(TAG, "onDestroy");
+        Log.e(TAG, "onDestroy");
     }
 }
