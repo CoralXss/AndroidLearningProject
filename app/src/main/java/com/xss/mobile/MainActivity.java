@@ -65,6 +65,7 @@ import com.xss.mobile.activity.scrollconflict.ScrollViewAndRecyclerViewActivity;
 import com.xss.mobile.activity.view.ViewEventDispatchActivity;
 import com.xss.mobile.adapter.BaseRecyclerAdapter;
 import com.xss.mobile.adapter.BaseViewHolder;
+import com.xss.mobile.fragment.tab.HomeTabActivity;
 import com.xss.mobile.handler.CrashHandler;
 import com.xss.mobile.hook.HookClickListenerActivity;
 import com.xss.mobile.utils.DensityUtil;
@@ -327,6 +328,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     private List<ViewModel> getData() {
         List<ViewModel> list = new ArrayList<>();
+        list.add(new ViewModel("Tab 中 Fragment 的生命周期", HomeTabActivity.class));
         list.add(new ViewModel("To View Animation", Main2Activity.class)); //ViewAnimationActivity
         list.add(new ViewModel("To Network Test", NetWorkTestActivity.class));
         list.add(new ViewModel("To IntentService Test", IntentServiceTestActivity.class));
