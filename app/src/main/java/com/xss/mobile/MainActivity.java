@@ -12,6 +12,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -307,6 +308,7 @@ public class MainActivity extends AppCompatActivity {
             ViewGroup.LayoutParams lp = new ViewGroup.LayoutParams(
                     ViewGroup.LayoutParams.MATCH_PARENT, DensityUtil.dip2px(context, 42)
             );
+            btn.setGravity(Gravity.LEFT);
             btn.setLayoutParams(lp);
 
             return new ItemViewHolder(btn);
