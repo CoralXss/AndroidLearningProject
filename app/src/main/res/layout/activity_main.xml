@@ -33,66 +33,10 @@
             android:text="To BindingActivity"
             android:layout_below="@+id/btn_test"/>
 
-        <Button
-            android:id="@+id/btn_to_parser_xml"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="To XmlParserActivity"
-            android:layout_below="@+id/btn_to_bind_service"/>
-
-        <Button
-            android:id="@+id/btn_to_get_picture"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="To GetPictureActivity"
-            android:layout_below="@+id/btn_to_parser_xml"/>
-
-        <Button
-            android:id="@+id/btn_test_bitmap"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Test Bitmap"
-            android:layout_below="@+id/btn_to_get_picture"/>
-
-        <Button
-            android:id="@+id/btn_book_list"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Show Book List"
-            android:layout_below="@+id/btn_test_bitmap"/>
-
-        <Button
-            android:id="@+id/btn_compose_label_edit_view"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Compose Label Edit View"
-            android:layout_below="@+id/btn_book_list"/>
-
-        <Button
-            android:id="@+id/btn_load_bitmap_at_viewpager"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="To ViewPager Load Bitmap"
-            android:layout_below="@+id/btn_compose_label_edit_view"/>
-
-        <Button
-            android:id="@+id/btn_load_bitmap_at_gridview"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="To GridView Load Bitmap"
-            android:layout_below="@+id/btn_load_bitmap_at_viewpager"/>
-
-        <Button
-            android:id="@+id/btn_to_show_glface_view"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="To GLSurfaceView"
-            android:layout_below="@+id/btn_load_bitmap_at_gridview"/>
-
         <android.support.v7.widget.RecyclerView
             android:id="@+id/recyclerView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@id/btn_to_show_glface_view"/>
+            android:layout_below="@+id/btn_to_bind_service"/>
     </RelativeLayout>
 </ScrollView>

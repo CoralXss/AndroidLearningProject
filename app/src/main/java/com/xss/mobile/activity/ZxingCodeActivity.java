@@ -63,7 +63,7 @@ public class ZxingCodeActivity extends Activity {
                     return;
                 }
 
-                final String path = "fdd_" + System.currentTimeMillis() + "_poster";
+                final String path = "xss_" + System.currentTimeMillis() + "_poster";
                 String posterPath = CommonUtil.savePosterImage(ZxingCodeActivity.this, path, posterBitmap);
 
                 shareWeChat(posterPath);

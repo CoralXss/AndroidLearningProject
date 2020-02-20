@@ -279,7 +279,7 @@ public class RxJavaTestActivity extends AppCompatActivity {
      * map 操作符：将一个事件转换为另一个事件（以下经过 map 操作后，将 String 转换为 Bitmap）
      */
     private void mapOperator() {
-        Observable.just("images/fdd.jpg")
+        Observable.just("images/xss.jpg")
                 .map(new Func1<String, Bitmap>() {
                     @Override
                     public Bitmap call(String filePath) {    // 参数 String

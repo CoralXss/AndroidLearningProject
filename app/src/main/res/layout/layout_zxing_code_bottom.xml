@@ -80,7 +80,7 @@
                     android:id="@+id/iv_qrcode"
                     android:layout_width="45dp"
                     android:layout_height="45dp"
-                    android:src="@drawable/icon_fdd"/>
+                    android:src="@drawable/agent_icon_call_1"/>
             </LinearLayout>
 
 

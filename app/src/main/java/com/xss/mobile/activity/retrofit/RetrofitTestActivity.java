@@ -16,8 +16,8 @@ import com.xss.mobile.network.retrofit.RetrofitManager;
 
 import java.io.File;
 
-import butterknife.BindView;
-import butterknife.ButterKnife;
+//import butterknife.BindView;
+//import butterknife.ButterKnife;
 import okhttp3.MediaType;
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
@@ -36,19 +36,19 @@ import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
 
 public class RetrofitTestActivity extends AppCompatActivity {
-    @BindView(R.id.click_me_BN)
+//    @BindView(R.id.click_me_BN)
     protected Button click_me_BN;
-    @BindView(R.id.result_TV)
+//    @BindView(R.id.result_TV)
     protected TextView result_TV;
 
-    @BindView(R.id.rxjava_BN)
+//    @BindView(R.id.rxjava_BN)
     protected Button rxjava_BN;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_retrofit_test);
-        ButterKnife.bind(this);
+//        ButterKnife.bind(this);
 
         click_me_BN.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -83,7 +83,7 @@ import dalvik.system.DexClassLoader;
 
 //import com.xss.mobile.activity.jnitest.JniTestActivity;
 
-public class MainActivity extends AppCompatActivity implements View.OnClickListener{
+public class MainActivity extends AppCompatActivity {
     private static final String TAG = MainActivity.class.getSimpleName();
 
     private RecyclerView recyclerView;
@@ -127,8 +127,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
 
         initItemClick();
-
-        initClick();
     }
 
     private void test() {
@@ -231,7 +229,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     private void useDexClassLoader() {
-        Intent intent = new Intent("com.fangdd.net.retrofitapplication", null);
+        Intent intent = new Intent("com.xss.net.retrofitapplication", null);
         PackageManager pm = getPackageManager();
         List<ResolveInfo> plugins = pm.queryIntentActivities(intent, PackageManager.MATCH_ALL);
         ResolveInfo resolveInfo = plugins.get(0);
@@ -282,11 +280,47 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         Log.e(TAG, uri.toString() + "\n" + destUri.toString());
     }
 
+    Handler handler1 = new Handler() {
+
+        @Override
+        public void handleMessage(Message msg) {
+            Log.e("h1", msg.obj.toString());
+        }
+    };
+
+    Handler handler2 = new Handler() {
+
+        @Override
+        public void handleMessage(Message msg) {
+            Log.e("h2", msg.obj.toString());
+        }
+    };
+
     private void initItemClick() {
+        findViewById(R.id.btn_test).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+//                Intent intent = new Intent(MainActivity.this, HelloIntentService.class);  // HelloService
+//                startService(intent);
+                Message msg = Message.obtain();
+                msg.obj = "handler 1";
+                handler1.sendMessage(msg);
+            }
+        });
+        findViewById(R.id.btn_to_bind_service).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+//                Intent intent = new Intent(MainActivity.this, WebViewActivity.class);
+//                startActivity(intent);
+//                useDexClassLoader();
+                Message msg1 = Message.obtain();
+                msg1.obj = "handler 2";
+                handler2.sendMessage(msg1);
+            }
+        });
         itemAdapter.setOnItemClickListener(new BaseRecyclerAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(int position, Object object) {
-
                 if (position == 3 && items.get(position).clazz == null) {
                     try {
                         Log.e(TAG, "use Java Reflection before: " + System.currentTimeMillis());
@@ -300,14 +334,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         m.invoke(null, MainActivity.this);
 
                         Log.e(TAG, "use Java Reflection after: " + System.currentTimeMillis());
-
-
                     } catch (ClassNotFoundException e) {
                         e.printStackTrace();
                     }
-//                        catch (InstantiationException e) {
-//                            e.printStackTrace();
-//                        }
                     catch (IllegalAccessException e) {
                         e.printStackTrace();
                     }
@@ -328,6 +357,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     private List<ViewModel> getData() {
         List<ViewModel> list = new ArrayList<>();
+        list.add(new ViewModel("To 组合控件", ComposeViewTestActivity.class));
+        list.add(new ViewModel("To ViewPagerBitmap", ViewPagerBitmapTestActivity.class));
+        list.add(new ViewModel("To GridViewBitmap", GridViewBitmapTestActivity.class));
+        list.add(new ViewModel("To OpenGL/SurfaceView", OpenGLES20Activity.class));
+        list.add(new ViewModel("To 滑动冲突", BookListActivity.class));
+        list.add(new ViewModel("To Bitmap 压缩", BitmapTestActivity.class));
+        list.add(new ViewModel("To 选择图片", GetPictureActivity.class)); // ChoosePhotoActivity
+        list.add(new ViewModel("To Xml 解析", XmlParserActivity.class));
         list.add(new ViewModel("Tab 中 Fragment 的生命周期", HomeTabActivity.class));
         list.add(new ViewModel("To View Animation", Main2Activity.class)); //ViewAnimationActivity
         list.add(new ViewModel("To Network Test", NetWorkTestActivity.class));
@@ -368,94 +405,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         return list;
     }
-    
-    private void initClick() {
-        findViewById(R.id.btn_test).setOnClickListener(this);
-        findViewById(R.id.btn_to_bind_service).setOnClickListener(this);
-        findViewById(R.id.btn_to_parser_xml).setOnClickListener(this);
-        findViewById(R.id.btn_to_get_picture).setOnClickListener(this);
-        findViewById(R.id.btn_test_bitmap).setOnClickListener(this);
-        findViewById(R.id.btn_book_list).setOnClickListener(this);
-        findViewById(R.id.btn_compose_label_edit_view).setOnClickListener(this);
-        findViewById(R.id.btn_load_bitmap_at_viewpager).setOnClickListener(this);
-        findViewById(R.id.btn_load_bitmap_at_gridview).setOnClickListener(this);
-        findViewById(R.id.btn_to_show_glface_view).setOnClickListener(this);
-    }
 
-    Handler handler1 = new Handler() {
+    private void testReflect() {
 
-        @Override
-        public void handleMessage(Message msg) {
-            Log.e("h1", msg.obj.toString());
-        }
-    };
-
-    Handler handler2 = new Handler() {
-
-        @Override
-        public void handleMessage(Message msg) {
-            Log.e("h2", msg.obj.toString());
-        }
-    };
-
-    @Override
-    public void onClick(View view) {
-        int id = view.getId();
-        Intent intent;
-        switch (id) {
-            case R.id.btn_test:
-//                intent = new Intent(MainActivity.this, HelloIntentService.class);  // HelloService
-//                startService(intent);
-
-                Message msg = Message.obtain();
-                msg.obj = "handler 1";
-                handler1.sendMessage(msg);
-
-                break;
-            case R.id.btn_to_bind_service:
-//                intent = new Intent(MainActivity.this, WebViewActivity.class);
-//                startActivity(intent);
-
-//                useDexClassLoader();
-
-                Message msg1 = Message.obtain();
-                msg1.obj = "handler 2";
-                handler2.sendMessage(msg1);
-
-                break;
-            case R.id.btn_to_parser_xml:
-                intent = new Intent(MainActivity.this, XmlParserActivity.class);
-                startActivity(intent);
-                break;
-            case R.id.btn_to_get_picture:
-                intent = new Intent(MainActivity.this, GetPictureActivity.class);  // ChoosePhotoActivity
-                startActivity(intent);
-                break;
-            case R.id.btn_test_bitmap:
-                intent = new Intent(MainActivity.this, BitmapTestActivity.class);
-                startActivity(intent);
-                break;
-            case R.id.btn_book_list:
-                intent = new Intent(MainActivity.this, BookListActivity.class);
-                startActivity(intent);
-                break;
-            case R.id.btn_compose_label_edit_view:
-                intent = new Intent(MainActivity.this, ComposeViewTestActivity.class);
-                startActivity(intent);
-                break;
-            case R.id.btn_load_bitmap_at_viewpager:
-                intent = new Intent(MainActivity.this, ViewPagerBitmapTestActivity.class);
-                startActivity(intent);
-                break;
-            case R.id.btn_load_bitmap_at_gridview:
-                intent = new Intent(MainActivity.this, GridViewBitmapTestActivity.class);
-                startActivity(intent);
-                break;
-            case R.id.btn_to_show_glface_view:
-                intent = new Intent(MainActivity.this, OpenGLES20Activity.class);
-                startActivity(intent);
-                break;
-        }
     }
 
     public class ItemAdapter extends BaseRecyclerAdapter<ViewModel> {
