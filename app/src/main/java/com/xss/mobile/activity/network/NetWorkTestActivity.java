@@ -1,11 +1,16 @@
 package com.xss.mobile.activity.network;
 
 import android.app.Activity;
+import android.app.ActivityManager;
+import android.app.DownloadManager;
 import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.net.Uri;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Bundle;
+import android.os.Environment;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewTreeObserver;
@@ -14,7 +19,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.xss.mobile.R;
+import com.xss.mobile.utils.ViewUtil;
 
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -134,5 +141,45 @@ public class NetWorkTestActivity  extends Activity {
         char[] buffer = new char[len];
         reader.read(buffer);
         return new String(buffer);
+    }
+
+    private void downloadApk() {
+        ActivityManager am = (ActivityManager) getSystemService(ACTIVITY_SERVICE);
+        int heapSize = am.getMemoryClass();  // 单位MB
+        Log.e(TAG, "heap size = " + heapSize + " fileSize = " + getFilesDir().getAbsolutePath()
+                + ", cacheSize = " + getCacheDir().getAbsolutePath());
+
+        int screenWidth = ViewUtil.getScreenWidth(this);
+        int screenHeight = ViewUtil.getScreenHeight(this);
+
+        String str = Build.BOARD + ", " + Build.BOOTLOADER + ", " + Build.BRAND + ", " + Build.DEVICE + ", \n" +
+                Build.DISPLAY + ", " + Build.HARDWARE + ", " + Build.HOST + ", " + Build.MANUFACTURER + ", \n" +
+                Build.MODEL + ", " + Build.PRODUCT + ", " + Build.SERIAL + ", " + Build.TYPE;
+        tv_result.setText(str);
+
+        String apkUrl = "https://a.apk";
+        Uri apkUri = Uri.parse(apkUrl);
+        DownloadManager.Request request = new DownloadManager.Request(apkUri);
+        request.setMimeType("application/vnd.android.package-archive");
+        request.setDestinationInExternalPublicDir(Environment.DIRECTORY_DOWNLOADS, "a-v8.3.0.apk");
+
+//        ContentValues values = request.toContentValues("");
+//        Uri downloadUri = mResolver.insert(Downloads.Impl.CONTENT_URI, values);
+        long id = Long.parseLong(apkUri.getLastPathSegment());
+
+
+        Log.e(TAG, str + ", \n" + "download id = " + id);
+    }
+
+    private void testUri() {
+        String apkName = "/download/agent-v" + ".apk";
+
+        final String fileUrl = Environment.getExternalStorageDirectory() + apkName;
+        Uri uri = Uri.fromFile(new File(fileUrl));
+
+        File downloadDir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS);
+        Uri destUri = Uri.withAppendedPath(Uri.fromFile(downloadDir), apkName);
+
+        Log.e(TAG, uri.toString() + "\n" + destUri.toString());
     }
 }

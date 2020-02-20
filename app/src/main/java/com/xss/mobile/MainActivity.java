@@ -1,16 +1,11 @@
 package com.xss.mobile;
 
-import android.app.ActivityManager;
-import android.app.DownloadManager;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
-import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
-import android.os.Environment;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
@@ -22,7 +17,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
-import com.google.gson.Gson;
+import com.example.core.activity.FileLoadActivity;
 import com.xss.mobile.activity.BitmapTestActivity;
 import com.xss.mobile.activity.BookListActivity;
 import com.xss.mobile.activity.ComposeViewTestActivity;
@@ -68,15 +63,13 @@ import com.xss.mobile.adapter.BaseViewHolder;
 import com.xss.mobile.fragment.tab.HomeTabActivity;
 import com.xss.mobile.handler.CrashHandler;
 import com.xss.mobile.hook.HookClickListenerActivity;
+import com.xss.mobile.service.HelloIntentService;
 import com.xss.mobile.utils.DensityUtil;
-import com.xss.mobile.utils.ViewUtil;
 
-import java.io.File;
-import java.io.IOException;
-import java.io.Serializable;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import dalvik.system.DexClassLoader;
@@ -98,14 +91,10 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        tv_test = (TextView) findViewById(R.id.tv_test);
-
-//        printAppHeapMemorySize();
-
-        initData();
-
+        PermissionCenter.setPermissions(Arrays.asList("p_del", "p_update"));
         CrashHandler.getInstance().init(MainActivity.this);
 
+        tv_test = (TextView) findViewById(R.id.tv_test);
         recyclerView = (RecyclerView) findViewById(R.id.recyclerView);
         itemAdapter = new ItemAdapter(this);
         items = getData();
@@ -123,109 +112,147 @@ public class MainActivity extends AppCompatActivity {
             recyclerView.setAdapter(itemAdapter);
         }
 
-//        checkFile();
-
-
         initItemClick();
     }
 
-    private void test() {
-
-//        String json = "{\"name\":\"浑江区\",\"pid\":10204,\"cityId\":10205,\"namePinyin\":\"hunjiang\"}";
-
-        City1 city1 = new City1();
-        city1.city = "南山区";
-        city1.pid = 1001;
-        city1.namePinyin = "nanshanqu";
-
-        String json = new Gson().toJson(city1);
-        Log.e(TAG, "city1 = " + json);
-
-        City2 city2 = new Gson().fromJson(json, City2.class);
-
-
-    }
-
-    public class City1 implements Serializable {
-
-        public String city;
-        public int pid;
-        public String namePinyin;
-    }
-
-    public class City2 implements Serializable {
-
-        public String city;
-        public int pid;
-        public String namePinyin;
-    }
-
-    private void checkFile() {
-        File file = buildPath(Environment.getExternalStorageDirectory(), "");
-        String path = "";
-        try {
-            path = file.getCanonicalPath();
-
-            tv_test.append("\n" + path);
-            Log.e(TAG, path);
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-    }
-
-    private static File buildPath(File base, String... segments) {
-        File cur = base;
-        for (String segment : segments) {
-            if (segment != null) {
-                cur = new File(cur, segment);
-            }
-        }
-        return cur;
-    }
 
     @Override
     public void onTrimMemory(int level) {
         super.onTrimMemory(level);
     }
 
-    private void printAppHeapMemorySize() {
-        ActivityManager am = (ActivityManager) getSystemService(ACTIVITY_SERVICE);
-        int heapSize = am.getMemoryClass();  // 单位MB
-        Log.e(TAG, "heap size = " + heapSize + " fileSize = " + getFilesDir().getAbsolutePath()
-                + ", cacheSize = " + getCacheDir().getAbsolutePath());
+    Handler handler1 = new Handler() {
 
-        int screenWidth = ViewUtil.getScreenWidth(this);
-        int screenHeight = ViewUtil.getScreenHeight(this);
+        @Override
+        public void handleMessage(Message msg) {
+            Log.e("h1", msg.obj.toString());
+        }
+    };
 
-        String str = Build.BOARD + ", " + Build.BOOTLOADER + ", " + Build.BRAND + ", " + Build.DEVICE + ", \n" +
-                Build.DISPLAY + ", " + Build.HARDWARE + ", " + Build.HOST + ", " + Build.MANUFACTURER + ", \n" +
-                Build.MODEL + ", " + Build.PRODUCT + ", " + Build.SERIAL + ", " + Build.TYPE;
-        tv_test.setText(str);
+    Handler handler2 = new Handler() {
 
-        String apkUrl = "http://fsxf.fangdd.com/xf/loJjNBcAOcAsrIW3Ly5c1UEpcV8s.apk";
-        Uri apkUri = Uri.parse(apkUrl);
-        DownloadManager.Request request = new DownloadManager.Request(apkUri);
-        request.setMimeType("application/vnd.android.package-archive");
-        request.setDestinationInExternalPublicDir(Environment.DIRECTORY_DOWNLOADS, "agent-v8.3.0.apk");
+        @Override
+        public void handleMessage(Message msg) {
+            Log.e("h2", msg.obj.toString());
+        }
+    };
 
-//        ContentValues values = request.toContentValues("");
-//        Uri downloadUri = mResolver.insert(Downloads.Impl.CONTENT_URI, values);
-        long id = Long.parseLong(apkUri.getLastPathSegment());
+    private void initItemClick() {
+        findViewById(R.id.btn_test).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Message msg = Message.obtain();
+                msg.obj = "handler 1";
+                handler1.sendMessage(msg);
 
+//                Message msg1 = Message.obtain();
+//                msg1.obj = "handler 2";
+//                handler2.sendMessage(msg1);
 
-        Log.e(TAG, str + ", \n" + "download id = " + id);
+//                testReflect();
+//                useDexClassLoader();
+            }
+        });
+        findViewById(R.id.btn_to_bind_service).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Service vs IntentService
+                Intent intent = new Intent(MainActivity.this, HelloIntentService.class);  // HelloService
+                startService(intent);
+            }
+        });
+        itemAdapter.setOnItemClickListener(new BaseRecyclerAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(int position, Object object) {
+                Class clazz = items.get(position).clazz;
+                Intent intent =  new Intent(MainActivity.this, clazz);
+                intent.putExtra("MainMsg", "from main");
+                startActivity(intent);
+            }
+        });
     }
 
-    private void initData() {
+    private List<ViewModel> getData() {
+        List<ViewModel> list = new ArrayList<>();
+        list.add(new ViewModel("启动模式", FirstActivity.class));
 
-        List<String> list = new ArrayList<>();
-//        list.add("p_add");
-        list.add("p_del");
-        list.add("p_update");
+        list.add(new ViewModel("控件学习：View 事件传递", ViewEventDispatchActivity.class));
+        list.add(new ViewModel("控件学习：OpenGL/SurfaceView", OpenGLES20Activity.class));
+        list.add(new ViewModel("控件学习：WebView", WebViewActivity.class));
+        list.add(new ViewModel("控件学习：FrameLayout", FrameLayoutTestActivity.class));
+        list.add(new ViewModel("控件学习：ViewStub", ViewStubTestActivity.class));
+        list.add(new ViewModel("控件学习：ConstraintLayout", ConstraintLayoutLearnActivity.class));
+        list.add(new ViewModel("控件学习：ListView 多数据卡顿", ListViewTestActivity.class));
+        list.add(new ViewModel("控件学习：组合控件及自定义属性", ComposeViewTestActivity.class));
+        list.add(new ViewModel("控件学习：自定义 LeanTextView", LeanTextViewActivity.class));
+        list.add(new ViewModel("控件学习：自定义标签库", MultiLabelActivity.class));
 
-        PermissionCenter.setPermissions(list);
+        list.add(new ViewModel("Bitmap 压缩", BitmapTestActivity.class));
+        list.add(new ViewModel("ViewPager加载Bitmap", ViewPagerBitmapTestActivity.class));
+        list.add(new ViewModel("GridView加载Bitmap", GridViewBitmapTestActivity.class));
+
+        list.add(new ViewModel("ScrollView：滑动冲突", BookListActivity.class));
+        list.add(new ViewModel("ScrollView：嵌套 RecyclerView", ScrollViewAndRecyclerViewActivity.class));
+        list.add(new ViewModel("ScrollView：嵌套 Fragment 滑动冲突", ScrollViewTestActivity.class));
+        list.add(new ViewModel("ScrollView：嵌套 EditText", Main2Activity.class)); //ViewAnimationActivity
+
+
+        list.add(new ViewModel("基础知识：BroadcastReceiver", BroadcastTestActivity.class));
+        list.add(new ViewModel("基础知识：Tab 中Fragment 生命周期", HomeTabActivity.class));
+        list.add(new ViewModel("基础知识：IntentService", IntentServiceTestActivity.class));
+        list.add(new ViewModel("基础知识：Lopper", LooperTestActivity.class));
+//        list.add(new ViewModel("To Jni Test", JniTestActivity.class));
+        list.add(new ViewModel("基础知识：注解", AnnotationTestActivity.class));
+        list.add(new ViewModel("基础知识：枚举", IntDefTestActivity.class));
+        list.add(new ViewModel("基础知识：内存", MemoryTabTestActivity.class));
+        list.add(new ViewModel("基础知识：Xml 解析", XmlParserActivity.class));
+
+
+        list.add(new ViewModel("功能实现：下载", NetWorkTestActivity.class));
+        list.add(new ViewModel("功能实现：断点续传", AutoResumeDownloadActivity.class));
+        list.add(new ViewModel("功能实现：上传", FileLoadActivity.class));
+        list.add(new ViewModel("功能实现：倒计时", TimeCountDownActivity.class));
+        list.add(new ViewModel("功能实现：定时器 AlarmManager", AlarmManagerTestActivity.class));
+        list.add(new ViewModel("功能实现：Click 事件 Hook", HookClickListenerActivity.class));
+        list.add(new ViewModel("功能实现：选择图片", GetPictureActivity.class)); // ChoosePhotoActivity
+
+        list.add(new ViewModel("框架学习：OkHttp3", OkHttpTestActivity.class));
+        list.add(new ViewModel("框架学习：EventBus", EventbusTestActivity.class));
+        list.add(new ViewModel("框架学习：Zxing QrCode", ZxingCodeActivity.class));
+        list.add(new ViewModel("框架学习：Retrofit", RetrofitTestActivity.class));
+        list.add(new ViewModel("框架学习：Retrofit Interceptor", InterceptorTestActivity.class));
+        list.add(new ViewModel("框架学习：RxJava", RxJavaTestActivity.class));
+        list.add(new ViewModel("框架学习：Dagger2.0", com.xss.mobile.activity.dagger2.DaggerTestActivity.class));
+        list.add(new ViewModel("框架学习：Dagger2.0 Scope", DaggerTestScopeActivity.class));
+        list.add(new ViewModel("框架学习：DataBinding", DatabindingTestActivity.class));
+        list.add(new ViewModel("框架学习：DataBinding 与列表控件", CustomSetterBindingAdapterTestActivity.class));
+        list.add(new ViewModel("框架学习：DataBinding 自定义名称", CustomBindingActivity.class));
+
+        return list;
+    }
+
+    private void testReflect() {
+        try {
+            Log.e(TAG, "use Java Reflection before: " + System.currentTimeMillis());
+            Class c = Class.forName("com.xss.mobile.activity.IntentServiceTestActivity");
+//                            IntentServiceTestActivity act = (IntentServiceTestActivity) c.newInstance();
+//                            act.toHere(MainActivity.this);
+
+            Method m = c.getMethod("toHere", Context.class);
+            m.invoke(null, MainActivity.this);
+
+            Log.e(TAG, "use Java Reflection after: " + System.currentTimeMillis());
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+        catch (IllegalAccessException e) {
+            e.printStackTrace();
+        }
+        catch (NoSuchMethodException e) {
+            e.printStackTrace();
+        } catch (InvocationTargetException e) {
+            e.printStackTrace();
+        }
     }
 
     private void useDexClassLoader() {
@@ -268,150 +295,8 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    private void testUri() {
-        String apkName = "/download/agent-v" + ".apk";
-
-        final String fileUrl = Environment.getExternalStorageDirectory() + apkName;
-        Uri uri = Uri.fromFile(new File(fileUrl));
-
-        File downloadDir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS);
-        Uri destUri = Uri.withAppendedPath(Uri.fromFile(downloadDir), apkName);
-
-        Log.e(TAG, uri.toString() + "\n" + destUri.toString());
-    }
-
-    Handler handler1 = new Handler() {
-
-        @Override
-        public void handleMessage(Message msg) {
-            Log.e("h1", msg.obj.toString());
-        }
-    };
-
-    Handler handler2 = new Handler() {
-
-        @Override
-        public void handleMessage(Message msg) {
-            Log.e("h2", msg.obj.toString());
-        }
-    };
-
-    private void initItemClick() {
-        findViewById(R.id.btn_test).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-//                Intent intent = new Intent(MainActivity.this, HelloIntentService.class);  // HelloService
-//                startService(intent);
-                Message msg = Message.obtain();
-                msg.obj = "handler 1";
-                handler1.sendMessage(msg);
-            }
-        });
-        findViewById(R.id.btn_to_bind_service).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-//                Intent intent = new Intent(MainActivity.this, WebViewActivity.class);
-//                startActivity(intent);
-//                useDexClassLoader();
-                Message msg1 = Message.obtain();
-                msg1.obj = "handler 2";
-                handler2.sendMessage(msg1);
-            }
-        });
-        itemAdapter.setOnItemClickListener(new BaseRecyclerAdapter.OnItemClickListener() {
-            @Override
-            public void onItemClick(int position, Object object) {
-                if (position == 3 && items.get(position).clazz == null) {
-                    try {
-                        Log.e(TAG, "use Java Reflection before: " + System.currentTimeMillis());
-
-
-                        Class c = Class.forName("com.xss.mobile.activity.IntentServiceTestActivity");
-//                            IntentServiceTestActivity act = (IntentServiceTestActivity) c.newInstance();
-//                            act.toHere(MainActivity.this);
-
-                        Method m = c.getMethod("toHere", Context.class);
-                        m.invoke(null, MainActivity.this);
-
-                        Log.e(TAG, "use Java Reflection after: " + System.currentTimeMillis());
-                    } catch (ClassNotFoundException e) {
-                        e.printStackTrace();
-                    }
-                    catch (IllegalAccessException e) {
-                        e.printStackTrace();
-                    }
-                    catch (NoSuchMethodException e) {
-                        e.printStackTrace();
-                    } catch (InvocationTargetException e) {
-                        e.printStackTrace();
-                    }
-                } else {
-                    Class clazz = items.get(position).clazz;
-                    Intent intent =  new Intent(MainActivity.this, clazz);
-                    intent.putExtra("MainMsg", "from main");
-                    startActivity(intent);
-                }
-            }
-        });
-    }
-
-    private List<ViewModel> getData() {
-        List<ViewModel> list = new ArrayList<>();
-        list.add(new ViewModel("To 组合控件", ComposeViewTestActivity.class));
-        list.add(new ViewModel("To ViewPagerBitmap", ViewPagerBitmapTestActivity.class));
-        list.add(new ViewModel("To GridViewBitmap", GridViewBitmapTestActivity.class));
-        list.add(new ViewModel("To OpenGL/SurfaceView", OpenGLES20Activity.class));
-        list.add(new ViewModel("To 滑动冲突", BookListActivity.class));
-        list.add(new ViewModel("To Bitmap 压缩", BitmapTestActivity.class));
-        list.add(new ViewModel("To 选择图片", GetPictureActivity.class)); // ChoosePhotoActivity
-        list.add(new ViewModel("To Xml 解析", XmlParserActivity.class));
-        list.add(new ViewModel("Tab 中 Fragment 的生命周期", HomeTabActivity.class));
-        list.add(new ViewModel("To View Animation", Main2Activity.class)); //ViewAnimationActivity
-        list.add(new ViewModel("To Network Test", NetWorkTestActivity.class));
-        list.add(new ViewModel("To IntentService Test", IntentServiceTestActivity.class));
-        list.add(new ViewModel("To ViewStub Test", ViewStubTestActivity.class));
-        list.add(new ViewModel("To OkHttp3 Test", OkHttpTestActivity.class));
-        list.add(new ViewModel("To Lopper Test", LooperTestActivity.class));
-//        list.add(new ViewModel("To Jni Test", JniTestActivity.class));
-        list.add(new ViewModel("To First Activity", FirstActivity.class));
-        list.add(new ViewModel("To WebView Activity", WebViewActivity.class));
-        list.add(new ViewModel("To LeanTextView Activity", LeanTextViewActivity.class));
-        list.add(new ViewModel("To Zxing QrCode Activity", ZxingCodeActivity.class));
-        list.add(new ViewModel("To Test Annotation Activity", AnnotationTestActivity.class));
-        list.add(new ViewModel("To Test Scroll contain fragment Activity", ScrollViewTestActivity.class));
-        list.add(new ViewModel("To Test FrameLayout Activity", FrameLayoutTestActivity.class));
-        list.add(new ViewModel("To Test EventBus Activity", EventbusTestActivity.class));
-        list.add(new ViewModel("To Test AutoResumeDownloadActivity", AutoResumeDownloadActivity.class));
-//        list.add(new ViewModel("To Test FileLoadActivity", FileLoadActivity.class));
-        list.add(new ViewModel("To Test ViewEventDispatchActivity", ViewEventDispatchActivity.class));
-        list.add(new ViewModel("To Test BroadcastTestActivity", BroadcastTestActivity.class));
-        list.add(new ViewModel("To Test MultiLabelActivity", MultiLabelActivity.class));
-        list.add(new ViewModel("To Test ConstraintLayoutLearnActivity", ConstraintLayoutLearnActivity.class));
-        list.add(new ViewModel("To Test ScrollConflictActivity", ScrollViewAndRecyclerViewActivity.class));
-        list.add(new ViewModel("To Test MemoryTabTestActivity", MemoryTabTestActivity.class));
-        list.add(new ViewModel("To Test ListViewTestActivity", ListViewTestActivity.class));
-        list.add(new ViewModel("To Test TimeCountDownActivity", TimeCountDownActivity.class));
-        list.add(new ViewModel("To Test RetrofitTestActivity", RetrofitTestActivity.class));
-        list.add(new ViewModel("To Test InterceptorTestActivity", InterceptorTestActivity.class));
-        list.add(new ViewModel("To Test RxJavaTestActivity", RxJavaTestActivity.class));
-        list.add(new ViewModel("To Test DaggerTestActivity", com.xss.mobile.activity.dagger2.DaggerTestActivity.class));
-        list.add(new ViewModel("TO DaggerTestScopeActivity", DaggerTestScopeActivity.class));
-        list.add(new ViewModel("To Test DataBindingTestActivity", DatabindingTestActivity.class));
-        list.add(new ViewModel("To Test CustomSetterBindingAdapterTestActivity", CustomSetterBindingAdapterTestActivity.class));
-        list.add(new ViewModel("To Test CustomBindingActivity", CustomBindingActivity.class));
-        list.add(new ViewModel("To Test DataBindingTestActivity", IntDefTestActivity.class));
-        list.add(new ViewModel("To Test AlarmManagerTestActivity", AlarmManagerTestActivity.class));
-        list.add(new ViewModel("To Test HookClickListenerActivity", HookClickListenerActivity.class));
-
-        return list;
-    }
-
-    private void testReflect() {
-
-    }
 
     public class ItemAdapter extends BaseRecyclerAdapter<ViewModel> {
-
         public ItemAdapter(Context context) {
             super(context);
         }
@@ -445,13 +330,10 @@ public class MainActivity extends AppCompatActivity {
         }
 
         class ItemViewHolder extends BaseViewHolder {
-
             public ItemViewHolder(View itemView) {
                 super(itemView);
-
             }
         }
-
     }
 
     class ViewModel {
